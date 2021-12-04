@@ -2,6 +2,7 @@
 {
     public enum SymbolCases
     {
+        None,
         Mixed,
         Lower,
         Upper
