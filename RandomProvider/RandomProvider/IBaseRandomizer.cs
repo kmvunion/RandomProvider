@@ -8,8 +8,6 @@ namespace RandomProvider
 {
     public interface IBaseRandomizer<T>
     {
-        T Build();
-
-        T CleanConfiguration();
+        T Build();      
     }
 }
