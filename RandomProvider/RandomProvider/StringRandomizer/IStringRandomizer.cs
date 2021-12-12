@@ -7,13 +7,17 @@
 
         public int MaxLength { get; }
 
+        public int ExectLength { get; }
+
         public char[] AllowedSymbols { get; }
 
-        public string AllowedSymbolsFromString { get;}
+        public string AllowedSymbolsFromString { get; }
 
         public char[] DeniedSymbols { get; }
 
         public string DeniedSymbolsFromString { get; }
+
+        public SymbolCases SymbolCases { get; }
 
         string GetValue();
     }

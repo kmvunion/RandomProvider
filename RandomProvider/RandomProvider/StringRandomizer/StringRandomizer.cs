@@ -5,7 +5,7 @@ namespace RandomProvider.StringRandomizer
     public sealed class StringRandomizer : IStringRandomizer
     {
 
-        private char[] _template;
+        private char[] _template = Array.Empty<char>();
 
         public int MinLength { get; internal set; }
 
@@ -25,10 +25,7 @@ namespace RandomProvider.StringRandomizer
 
         public string GetValue()
         {
-            
-
             _template = BuildTemplate();
-            
 
             if (ExectLength > 0)
             {
@@ -80,31 +77,28 @@ namespace RandomProvider.StringRandomizer
             if (!string.IsNullOrEmpty(DeniedSymbolsFromString))
             {
                 symbols.RemoveAll(s => DeniedSymbolsFromString.ToArray().Contains(s));
-            }            
+            }
 
             switch (SymbolCases)
             {
                 case SymbolCases.Lower:
                     return symbols.Select(x => Char.ToLower(x)).ToArray();
-                    break;
-
                 case SymbolCases.Upper:
                     return symbols.Select(x => Char.ToUpper(x)).ToArray();
-                    break;
-
                 case SymbolCases.Mixed:
                     return BuildMixed(symbols.ToArray());
+                case SymbolCases.None:
                     break;
             }
 
             return symbols.ToArray();
         }
 
-        private char[] BuildMixed(char[] symbols)
+        private static char[] BuildMixed(char[] symbols)
         {
             if (symbols == null || symbols.Length < 2)
             {
-                return symbols;
+                return Array.Empty<char>();
             }
 
             var borderRange = Convert.ToInt32(Math.Floor((decimal)(symbols.Length / 2)));
