@@ -12,7 +12,7 @@ void Example1()
 {
     var randomizer = new StringRandomizerBuilder()
     .UseSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
-    .WithExectLength(7)
+    .WithExactLength(7)
     .Build();
     var genereatedValues = GenrateValues(randomizer);
 
@@ -46,7 +46,7 @@ void Example3()
     .UseSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f', '$', '%', '#' })
     .DontUseSymbolsFromString("A5$#")
     .WithSymbolsCases(SymbolCases.Upper)
-    .WithExectLength(15)
+    .WithExactLength(15)
     .Build();
     var genereatedValues = GenrateValues(randomizer);
 

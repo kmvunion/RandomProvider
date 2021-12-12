@@ -39,7 +39,7 @@ namespace RandomProvider.StringRandomizer
             return this;
         }
 
-        public IStringRandomizerBuilder WithExectLength(int length)
+        public IStringRandomizerBuilder WithExactLength(int length)
         {
             _randomizer.ExectLength = length;
             return this;

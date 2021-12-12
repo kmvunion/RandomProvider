@@ -20,7 +20,7 @@ namespace RandomProvider.StringRandomizer
         
         IStringRandomizerBuilder WithMaxLength(int length);
         
-        IStringRandomizerBuilder WithExectLength(int length);
+        IStringRandomizerBuilder WithExactLength(int length);
 
         IStringRandomizerBuilder WithSymbolsCases(SymbolCases cases);
 
