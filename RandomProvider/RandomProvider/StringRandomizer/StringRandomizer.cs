@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RandomProvider.StringRandomizer
+namespace KMVUnion.RandomProvider.StringRandomizer
 {
     public sealed class StringRandomizer : IStringRandomizer
     {
@@ -31,15 +31,15 @@ namespace RandomProvider.StringRandomizer
             {
                 return GenerateRandomString(ExectLength);
             }
-            else if (MaxLength > 0 && MinLength>0)
+            else if (MaxLength > 0 && MinLength > 0)
             {
                 var random = new Random();
-                
+
                 if (MinLength > MaxLength)
                 {
                     throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
                 }
-                
+
                 var dynamicLength = random.Next(MinLength, MaxLength);
                 return GenerateRandomString(dynamicLength);
 
@@ -48,7 +48,7 @@ namespace RandomProvider.StringRandomizer
 
         }
 
-        private string GenerateRandomString( int length)
+        private string GenerateRandomString(int length)
         {
             var ressult = new StringBuilder();
             var random = new Random();
@@ -71,9 +71,9 @@ namespace RandomProvider.StringRandomizer
                 symbols.AddRange(AllowedSymbolsFromString.ToArray());
             }
 
-            symbols = symbols.Distinct().ToList();            
+            symbols = symbols.Distinct().ToList();
             symbols.RemoveAll(s => DeniedSymbols.Contains(s));
-           
+
             if (!string.IsNullOrEmpty(DeniedSymbolsFromString))
             {
                 symbols.RemoveAll(s => DeniedSymbolsFromString.ToArray().Contains(s));

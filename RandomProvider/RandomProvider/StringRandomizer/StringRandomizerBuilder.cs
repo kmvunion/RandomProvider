@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RandomProvider.StringRandomizer
+﻿namespace KMVUnion.RandomProvider.StringRandomizer
 {
     public class StringRandomizerBuilder : IStringRandomizerBuilder
     {
-        StringRandomizer _randomizer = new StringRandomizer();
+        private readonly StringRandomizer _randomizer = new StringRandomizer();
 
         public IStringRandomizer Build()
         {
@@ -29,13 +23,13 @@ namespace RandomProvider.StringRandomizer
 
         public IStringRandomizerBuilder UseSymbols(char[] symbols)
         {
-            _randomizer.AllowedSymbols = symbols;   
+            _randomizer.AllowedSymbols = symbols;
             return this;
         }
 
         public IStringRandomizerBuilder UseSymbolsFromString(string templateString)
         {
-            _randomizer.AllowedSymbolsFromString = templateString;  
+            _randomizer.AllowedSymbolsFromString = templateString;
             return this;
         }
 
@@ -47,7 +41,7 @@ namespace RandomProvider.StringRandomizer
 
         public IStringRandomizerBuilder WithMaxLength(int length)
         {
-            _randomizer.MaxLength = length; 
+            _randomizer.MaxLength = length;
             return this;
         }
 

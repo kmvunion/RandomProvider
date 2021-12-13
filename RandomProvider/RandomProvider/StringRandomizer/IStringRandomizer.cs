@@ -1,4 +1,4 @@
-﻿namespace RandomProvider.StringRandomizer
+﻿namespace KMVUnion.RandomProvider.StringRandomizer
 {
     public interface IStringRandomizer
     {
