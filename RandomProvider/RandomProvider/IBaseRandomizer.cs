@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RandomProvider
+﻿namespace KMVUnion.RandomProvider
 {
     public interface IBaseRandomizer<T>
     {
-        T Build();      
+        T Build();
     }
 }

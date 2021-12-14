@@ -1,12 +1,11 @@
-﻿using RandomProvider.Example;
-using RandomProvider.StringRandomizer;
+﻿using KMVUnion.RandomProvider.Example;
+using KMVUnion.RandomProvider.StringRandomizer;
 
 Example1();
 Example2();
 Example3();
 
 Console.ReadLine();
-
 
 void Example1()
 {
@@ -17,8 +16,8 @@ void Example1()
     var genereatedValues = GenrateValues(randomizer);
 
     //Printing configuration and result 
-    PrintHelpers.PrintConfiguration(randomizer, 
-        "Example 1.", 
+    PrintHelpers.PrintConfiguration(randomizer,
+        "Example 1.",
         "Example of using only symbols configuration and exact length. Mixed(Top and Lower) character cases. ");
     PrintHelpers.PrintTestsRezults(genereatedValues);
 }

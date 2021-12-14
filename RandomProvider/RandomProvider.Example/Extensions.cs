@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RandomProvider.Example
+namespace KMVUnion.RandomProvider.Example
 {
     internal static class Extensions
     {

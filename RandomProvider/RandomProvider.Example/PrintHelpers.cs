@@ -1,8 +1,8 @@
-﻿using RandomProvider.StringRandomizer;
+﻿using KMVUnion.RandomProvider.StringRandomizer;
 using System.Collections;
 using System.Linq.Expressions;
 
-namespace RandomProvider.Example
+namespace KMVUnion.RandomProvider.Example
 {
     internal static class PrintHelpers
     {
