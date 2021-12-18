@@ -2,13 +2,13 @@
 {
     public interface IStringRandomizerBuilder : IBaseRandomizer<IStringRandomizer>
     {
-        IStringRandomizerBuilder UseSymbols(char[] symbols);
+        IStringRandomizerBuilder SetAllowedSymbols(char[] symbols);
 
-        IStringRandomizerBuilder DontUseSymbols(char[] symbols);
+        IStringRandomizerBuilder SetDeniedSymbols(char[] symbols);
 
-        IStringRandomizerBuilder DontUseSymbolsFromString(string templateString);
+        IStringRandomizerBuilder SetDeniedSymbolsFromString(string templateString);
 
-        IStringRandomizerBuilder UseSymbolsFromString(string templateString);
+        IStringRandomizerBuilder SetAllowedSymbolsFromString(string templateString);
 
         IStringRandomizerBuilder WithMinLength(int length);
 

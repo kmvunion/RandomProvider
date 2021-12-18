@@ -10,7 +10,7 @@ Console.ReadLine();
 void Example1()
 {
     var randomizer = new StringRandomizerBuilder()
-    .UseSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
+    .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
     .WithExactLength(7)
     .Build();
     var genereatedValues = GenrateValues(randomizer);
@@ -25,7 +25,7 @@ void Example1()
 void Example2()
 {
     var randomizer = new StringRandomizerBuilder()
-    .UseSymbolsFromString("This is string of symbols from which will be used as a template for generating random string.")
+    .SetAllowedSymbolsFromString("This is string of symbols from which will be used as a template for generating random string.")
     .WithMinLength(3)
     .WithMaxLength(10)
     .WithSymbolsCases(SymbolCases.Lower)
@@ -42,8 +42,8 @@ void Example2()
 void Example3()
 {
     var randomizer = new StringRandomizerBuilder()
-    .UseSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f', '$', '%', '#' })
-    .DontUseSymbolsFromString("A5$#")
+    .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f', '$', '%', '#' })
+    .SetDeniedSymbolsFromString("A5$#")
     .WithSymbolsCases(SymbolCases.Upper)
     .WithExactLength(15)
     .Build();

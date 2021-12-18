@@ -3,11 +3,11 @@
     public interface IStringRandomizer
     {
 
-        public int MinLength { get; }
+        public int? MinLength { get; }
 
-        public int MaxLength { get; }
+        public int? MaxLength { get; }
 
-        public int ExectLength { get; }
+        public int? ExectLength { get; }
 
         public char[] AllowedSymbols { get; }
 

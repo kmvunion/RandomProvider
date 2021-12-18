@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1683631E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KMVUnion.RandomProvider.Example", "RandomProvider.Example\KMVUnion.RandomProvider.Example.csproj", "{3874F0E5-D8E9-4170-AEF4-CD8B314B5B92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomProvider.Tests", "RandomProvider.Tests\RandomProvider.Tests.csproj", "{1FA472CE-EE7D-4443-826A-80D46AF10576}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,12 +27,17 @@ Global
 		{3874F0E5-D8E9-4170-AEF4-CD8B314B5B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3874F0E5-D8E9-4170-AEF4-CD8B314B5B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3874F0E5-D8E9-4170-AEF4-CD8B314B5B92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FA472CE-EE7D-4443-826A-80D46AF10576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FA472CE-EE7D-4443-826A-80D46AF10576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FA472CE-EE7D-4443-826A-80D46AF10576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FA472CE-EE7D-4443-826A-80D46AF10576}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3874F0E5-D8E9-4170-AEF4-CD8B314B5B92} = {53B7F258-1210-42D7-8DF9-4FB0A49F7820}
+		{1FA472CE-EE7D-4443-826A-80D46AF10576} = {1683631E-7B27-4C08-B400-17B9E8038635}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B53C8815-CF68-4BBF-B168-23A7C088B42E}
