@@ -37,19 +37,19 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             return this;
         }
 
-        public IStringRandomizerBuilder WithExactLength(int length)
+        public IStringRandomizerBuilder WithExactLength(int? length)
         {
             _randomizer.ExectLength = length;
             return this;
         }
 
-        public IStringRandomizerBuilder WithMaxLength(int length)
+        public IStringRandomizerBuilder WithMaxLength(int? length)
         {
             _randomizer.MaxLength = length;
             return this;
         }
 
-        public IStringRandomizerBuilder WithMinLength(int length)
+        public IStringRandomizerBuilder WithMinLength(int? length)
         {
             _randomizer.MinLength = length;
             return this;
@@ -82,20 +82,27 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                 (_randomizer.MinLength.HasValue && _randomizer.MinLength.Value < 1) ||
                 (_randomizer.ExectLength.HasValue && _randomizer.ExectLength.Value < 1))
                 throw new ConfigurationException("Length of randomizer cannot be less 0.");
-
-
         }
 
         private void ValidateTemplate()
         {
             byte minUniqLength = 2;
-            if (
-                string.IsNullOrWhiteSpace(_randomizer.AllowedSymbolsFromString) ||
-                _randomizer.AllowedSymbolsFromString?.ToList().Distinct().Count() < minUniqLength ||
-                _randomizer.AllowedSymbols.Distinct().ToList().Count < minUniqLength)
-                throw new ConfigurationException($"Allowed symbols does not configured or unique configuration length is lower then {minUniqLength} ");
 
+            List<char> targetTemaplate = new();
 
+            if (!string.IsNullOrEmpty(_randomizer.AllowedSymbolsFromString))
+                targetTemaplate.AddRange(_randomizer.AllowedSymbolsFromString.ToArray());
+
+            if (_randomizer.AllowedSymbols != null)
+                targetTemaplate.AddRange(_randomizer.AllowedSymbols);
+
+            targetTemaplate = targetTemaplate.Distinct().ToList();
+
+            if (!targetTemaplate.Any())
+                throw new ConfigurationException($"Allowed symbols do not configured. Please set either AllowedSymbols or AllowedSymbolsFromString.");
+
+            if (targetTemaplate?.Count() < minUniqLength)
+                throw new ConfigurationException($"Allowed symbols do not configured or unique configuration length is lower then {minUniqLength}.");
         }
     }
 

@@ -7,11 +7,11 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 
         private char[] _template = Array.Empty<char>();
 
-        public int? MinLength { get; internal set; } 
+        public int? MinLength { get; internal set; } = null;
 
-        public int? MaxLength { get; internal set; }
+        public int? MaxLength { get; internal set; } = null;
 
-        public int? ExectLength { get; internal set; }
+        public int? ExectLength { get; internal set; } = null;
 
         public char[] AllowedSymbols { get; internal set; } = Array.Empty<char>();
 

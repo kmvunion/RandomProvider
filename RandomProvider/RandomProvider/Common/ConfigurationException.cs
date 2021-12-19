@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KMVUnion.RandomProvider.Common
+﻿namespace KMVUnion.RandomProvider.Common
 {
-    internal class ConfigurationException : Exception
+    public class ConfigurationException : Exception
     {
         public ConfigurationException()
         {

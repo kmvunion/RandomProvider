@@ -10,11 +10,11 @@
 
         IStringRandomizerBuilder SetAllowedSymbolsFromString(string templateString);
 
-        IStringRandomizerBuilder WithMinLength(int length);
+        IStringRandomizerBuilder WithMinLength(int? length);
 
-        IStringRandomizerBuilder WithMaxLength(int length);
+        IStringRandomizerBuilder WithMaxLength(int? length);
 
-        IStringRandomizerBuilder WithExactLength(int length);
+        IStringRandomizerBuilder WithExactLength(int? length);
 
         IStringRandomizerBuilder WithSymbolsCases(SymbolCases cases);
 
