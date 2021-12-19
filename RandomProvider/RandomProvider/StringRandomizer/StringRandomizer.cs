@@ -7,11 +7,11 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 
         private char[] _template = Array.Empty<char>();
 
-        public int MinLength { get; internal set; }
+        public int? MinLength { get; internal set; } = null;
 
-        public int MaxLength { get; internal set; }
+        public int? MaxLength { get; internal set; } = null;
 
-        public int ExectLength { get; internal set; }
+        public int? ExectLength { get; internal set; } = null;
 
         public char[] AllowedSymbols { get; internal set; } = Array.Empty<char>();
 
@@ -27,11 +27,11 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         {
             _template = BuildTemplate();
 
-            if (ExectLength > 0)
+            if (ExectLength.HasValue && ExectLength > 0)
             {
-                return GenerateRandomString(ExectLength);
+                return GenerateRandomString(ExectLength.Value);
             }
-            else if (MaxLength > 0 && MinLength > 0)
+            else if (MaxLength.HasValue && MaxLength > 0 && MinLength.HasValue && MinLength > 0)
             {
                 var random = new Random();
 
@@ -40,7 +40,7 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                     throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
                 }
 
-                var dynamicLength = random.Next(MinLength, MaxLength);
+                var dynamicLength = random.Next(MinLength.Value, MaxLength.Value);
                 return GenerateRandomString(dynamicLength);
 
             }
