@@ -115,30 +115,26 @@ Please, have a look examples below for a better understanding of the randomizer 
 
 ### Example 1
 Use predefined characters for the generating random string values
-
-**Configuration**
-
 ```csharp
 using KMVUnion.RandomProvider.StringRandomizer;
 ...
+//Configuration
 var randomizer = new StringRandomizerBuilder()
     .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
     .WithExactLength(7)
     .Build();
-```
-**Generating value**
-```csharp
+...
+//Generating value
 var value = randomizer.GetValue();
 ```
 
 ### Example 2
 Use predefined string as a template for generating random string values 
 
-**Configuration**
-
 ```csharp
 using KMVUnion.RandomProvider.StringRandomizer;
 ...
+//Configuration
 var randomizer = new StringRandomizerBuilder()
     .SetAllowedSymbolsFromString("This is a string that will be used as a template for generating random string value.")
     .SetDeniedSymbolsFromString("w ta")
@@ -146,8 +142,7 @@ var randomizer = new StringRandomizerBuilder()
     .WithMaxLength(10)
     .WithSymbolsCases(SymbolCases.Lower)
     .Build();
-```
-**Generating value**
-```csharp
+...
+//Generating value
 var value = randomizer.GetValue();
 ```
