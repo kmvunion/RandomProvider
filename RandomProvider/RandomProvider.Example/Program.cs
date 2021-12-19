@@ -56,6 +56,22 @@ void Example3()
     PrintHelpers.PrintTestsRezults(genereatedValues);
 }
 
+void Example4()
+{
+    var randomizer = new StringRandomizerBuilder()
+        .SetAllowedSymbols(new[] { '1', '2', '3' })
+        .WithExactLength(50)
+        .Build();
+
+    var genereatedValues = GenrateValues(randomizer);
+
+    //Printing configuration and result 
+    PrintHelpers.PrintConfiguration(randomizer,
+        "Example 3.",
+        "Example of using only symbols configuration and do not use symbols from excluding string. Also only Upper character cases has applied. ");
+    PrintHelpers.PrintTestsRezults(genereatedValues);
+}
+
 List<string> GenrateValues(IStringRandomizer randomizer, int numberOfExamples = 3)
 {
     var res = new List<string>();

@@ -4,7 +4,7 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 {
     public class StringRandomizerBuilder : IStringRandomizerBuilder
     {
-        private readonly StringRandomizer _randomizer = new StringRandomizer();
+        private readonly StringRandomizer _randomizer = new();
 
         public IStringRandomizer Build()
         {
@@ -101,7 +101,7 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             if (!targetTemaplate.Any())
                 throw new ConfigurationException($"Allowed symbols do not configured. Please set either AllowedSymbols or AllowedSymbolsFromString.");
 
-            if (targetTemaplate?.Count() < minUniqLength)
+            if (targetTemaplate?.Count < minUniqLength)
                 throw new ConfigurationException($"Allowed symbols do not configured or unique configuration length is lower then {minUniqLength}.");
         }
     }

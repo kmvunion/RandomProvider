@@ -1,24 +1,54 @@
 ﻿namespace KMVUnion.RandomProvider.StringRandomizer
 {
+    /// <summary>
+    /// String randomizer
+    /// </summary>
     public interface IStringRandomizer
     {
+        /// <summary>
+        /// Get configuration of the minimal length of generated strings
+        /// </summary>
+        int? MinLength { get; }
 
-        public int? MinLength { get; }
+        /// <summary>
+        /// Get configuration of the maximal length of generated strings
+        /// </summary>
+        int? MaxLength { get; }
 
-        public int? MaxLength { get; }
+        /// <summary>
+        /// Get configuration of the exact length of generated strings
+        /// </summary>
+        int? ExectLength { get; }
 
-        public int? ExectLength { get; }
+        /// <summary>
+        /// Get configuration of allowed symbols from the array
+        /// </summary>
+        char[] AllowedSymbols { get; }
 
-        public char[] AllowedSymbols { get; }
+        /// <summary>
+        /// Get configuration of allowed symbols from the string
+        /// </summary>
+        string AllowedSymbolsFromString { get; }
 
-        public string AllowedSymbolsFromString { get; }
+        /// <summary>
+        /// Get configuration of denied symbols from the array
+        /// </summary>
+        char[] DeniedSymbols { get; }
 
-        public char[] DeniedSymbols { get; }
+        /// <summary>
+        /// Get configuration of denied symbols from the string
+        /// </summary>
+        string DeniedSymbolsFromString { get; }
 
-        public string DeniedSymbolsFromString { get; }
+        /// <summary>
+        /// Get configuration of the symbols cases for generated values
+        /// </summary>
+        SymbolCases SymbolCases { get; }
 
-        public SymbolCases SymbolCases { get; }
-
+        /// <summary>
+        /// Generate random string value
+        /// </summary>
+        /// <returns>Random string value</returns>
         string GetValue();
     }
 }
