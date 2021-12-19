@@ -111,7 +111,7 @@ var randomizer = new StringRandomizerBuilder()
 
 Please, have a look examples below for a better understanding of the randomizer configuration.
 
-##Examples
+## Examples
 
 ### Example 1
 Use predefined characters for the generating random string values
