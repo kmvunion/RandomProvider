@@ -5,7 +5,12 @@ namespace KMVUnion.RandomProvider.StringRandomizer
     public sealed class StringRandomizer : IStringRandomizer
     {
 
-        private char[] _template = Array.Empty<char>();
+        private readonly Lazy<char[]> _template;
+
+        internal StringRandomizer()
+        {
+            _template = new Lazy<char[]>(() => { return BuildTemplate(); });
+        }
 
         public int? MinLength { get; internal set; } = null;
 
@@ -25,8 +30,6 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 
         public string GetValue()
         {
-            _template = BuildTemplate();
-
             if (ExectLength.HasValue && ExectLength > 0)
             {
                 return GenerateRandomString(ExectLength.Value);
@@ -42,20 +45,20 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 
                 var dynamicLength = random.Next(MinLength.Value, MaxLength.Value);
                 return GenerateRandomString(dynamicLength);
-
             }
-            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
 
+            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
         }
 
         private string GenerateRandomString(int length)
         {
             var ressult = new StringBuilder();
             var random = new Random();
+            var currentTemplate = _template.Value;
 
             while (ressult.Length < length)
             {
-                ressult.Append(_template[random.Next(_template.Length)]);
+                ressult.Append(currentTemplate[random.Next(currentTemplate.Length)]);
             }
 
             return ressult.ToString();
@@ -71,6 +74,18 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                 symbols.AddRange(AllowedSymbolsFromString.ToArray());
             }
 
+            switch (SymbolCases)
+            {
+                case SymbolCases.Lower:
+                    symbols = symbols.Select(x => Char.ToLower(x)).ToList(); break;
+                case SymbolCases.Upper:
+                    symbols = symbols.Select(x => Char.ToUpper(x)).ToList(); break;
+                case SymbolCases.Mixed:
+                    symbols = BuildMixed(symbols); break;
+                case SymbolCases.None:
+                    break;
+            }
+
             symbols = symbols.Distinct().ToList();
             symbols.RemoveAll(s => DeniedSymbols.Contains(s));
 
@@ -79,33 +94,21 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                 symbols.RemoveAll(s => DeniedSymbolsFromString.ToArray().Contains(s));
             }
 
-            switch (SymbolCases)
-            {
-                case SymbolCases.Lower:
-                    return symbols.Select(x => Char.ToLower(x)).ToArray();
-                case SymbolCases.Upper:
-                    return symbols.Select(x => Char.ToUpper(x)).ToArray();
-                case SymbolCases.Mixed:
-                    return BuildMixed(symbols.ToArray());
-                case SymbolCases.None:
-                    break;
-            }
-
             return symbols.ToArray();
         }
 
-        private static char[] BuildMixed(char[] symbols)
+        private static List<char> BuildMixed(List<char> symbols)
         {
-            if (symbols == null || symbols.Length < 2)
+            if (symbols == null || symbols.Count < 2)
             {
-                return Array.Empty<char>();
+                return new();
             }
 
-            var borderRange = Convert.ToInt32(Math.Floor((decimal)(symbols.Length / 2)));
+            var borderRange = Convert.ToInt32(Math.Floor((decimal)(symbols.Count / 2)));
             var result = symbols.Take(borderRange).Select(x => char.ToLower(x)).ToList();
             result.AddRange(symbols.Skip(borderRange).Select(x => char.ToUpper(x)).ToList());
 
-            return result.ToArray();
+            return result;
         }
     }
 }
