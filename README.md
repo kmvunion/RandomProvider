@@ -1,6 +1,6 @@
 # RandomProvider
 The lightweight package allows generating random strings for your project based on predefined configurations. 
-The complete list of features will describe in the documentation for release version 1.0.1.
+Complete documentation will be available in version 1.1.0.
 
 ## Documentation
 

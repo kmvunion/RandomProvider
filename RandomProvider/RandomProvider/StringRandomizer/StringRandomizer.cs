@@ -50,6 +50,16 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
         }
 
+        public List<string> GetListValue(int count)
+        {
+            List<string> result = new();
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(GetValue());
+            }
+            return result;
+        }
+
         private string GenerateRandomString(int length)
         {
             var ressult = new StringBuilder();
