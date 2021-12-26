@@ -52,10 +52,10 @@
         string GetValue();
 
         /// <summary>
-        /// Generate list of random string values
+        /// Generate IEnumerable of random string values
         /// </summary>
         /// <param name="count">Count of generated values</param>
         /// <returns>List of random string values</returns>
-        List<string> GetListValue(int count);
+        IEnumerable<string> GetValueCollection(int count);
     }
 }

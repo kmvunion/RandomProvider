@@ -1,7 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Nodes;
-
-namespace KMVUnion.RandomProvider.StringRandomizer
+﻿namespace KMVUnion.RandomProvider.StringRandomizer
 {
     /// <summary>
     /// String randomizer builder
@@ -63,45 +60,5 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         /// <param name="cases"></param>
         /// <returns>String randomizer builder</returns>
         IStringRandomizerBuilder WithSymbolsCases(SymbolCases cases);
-
-        /// <summary>
-        /// Restore string randomizer configuration from json string
-        /// </summary>
-        /// <param name="jsonString"> Json configuration stored in the string </param>
-        /// <param name="options">Json serializer options</param>
-        /// <returns>String randomizer builder</returns>
-        IStringRandomizerBuilder RestoreFromJSON(string jsonString, JsonSerializerOptions? options = null);
-
-        /// <summary>
-        /// Restore string randomizer configuration from json document
-        /// </summary>
-        /// <param name="document"> Json configuration stored in the Json document</param>
-        /// <param name="options">Json serializer options</param>
-        /// <returns>String randomizer builder</returns>
-        IStringRandomizerBuilder RestoreFromJSON(JsonDocument document, JsonSerializerOptions? options = null);
-
-        /// <summary>
-        /// Restore string randomizer configuration from json element
-        /// </summary>
-        /// <param name="element"> Json configuration stored in the Json element</param>
-        /// <param name="options">Json serializer options</param>
-        /// <returns>String randomizer builder</returns>
-        IStringRandomizerBuilder RestoreFromJSON(JsonElement element, JsonSerializerOptions? options = null);
-
-        /// <summary>
-        /// Restore string randomizer configuration from stream
-        /// </summary>
-        /// <param name="stream"> Json configuration from the stream</param>
-        /// <param name="options">Json serializer options</param>
-        /// <returns>String randomizer builder</returns>
-        IStringRandomizerBuilder RestoreFromJSON(Stream stream, JsonSerializerOptions? options = null);
-
-        /// <summary>
-        /// Restore string randomizer configuration from JsonNode
-        /// </summary>
-        /// <param name="node"> Json configuration stored in the Json node</param>
-        /// <param name="options">Json serializer options</param>
-        /// <returns>String randomizer builder</returns>
-        IStringRandomizerBuilder RestoreFromJSON(JsonNode? node, JsonSerializerOptions? options = null);
     }
 }

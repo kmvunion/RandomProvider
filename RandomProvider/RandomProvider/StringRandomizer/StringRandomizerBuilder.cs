@@ -1,5 +1,4 @@
 ﻿using KMVUnion.RandomProvider.Common;
-using System.Text.Json;
 
 namespace KMVUnion.RandomProvider.StringRandomizer
 {
@@ -59,48 +58,6 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         public IStringRandomizerBuilder WithSymbolsCases(SymbolCases cases)
         {
             _randomizer.SymbolCases = cases;
-            return this;
-        }
-
-        public IStringRandomizerBuilder RestoreFromJSON(string jsonString, JsonSerializerOptions? options = null)
-        {
-            return DeserializeRandomizerFromJSON(JsonSerializer.Deserialize<StringRandomizer>, jsonString, options);
-        }
-
-        public IStringRandomizerBuilder RestoreFromJSON(JsonDocument document, JsonSerializerOptions? options = null)
-        {
-            return DeserializeRandomizerFromJSON(JsonSerializer.Deserialize<StringRandomizer>, document, options);
-        }
-
-        public IStringRandomizerBuilder RestoreFromJSON(JsonElement element, JsonSerializerOptions? options = null)
-        {
-            return DeserializeRandomizerFromJSON(JsonSerializer.Deserialize<StringRandomizer>, element, options);
-        }
-
-        public IStringRandomizerBuilder RestoreFromJSON(Stream stream, JsonSerializerOptions? options = null)
-        {
-            return DeserializeRandomizerFromJSON(JsonSerializer.Deserialize<StringRandomizer>, stream, options);
-        }
-
-        public IStringRandomizerBuilder RestoreFromJSON(System.Text.Json.Nodes.JsonNode? node, JsonSerializerOptions? options = null)
-        {            
-            return DeserializeRandomizerFromJSON(JsonSerializer.Deserialize<StringRandomizer>, node, options);
-        }
-
-        private IStringRandomizerBuilder DeserializeRandomizerFromJSON<T>(Func<T, JsonSerializerOptions?, StringRandomizer?> deserializationMethod, T data, JsonSerializerOptions? options = null)
-        {
-            if (data == null)
-                throw new ConfigurationException("String randomizer configuration cannot be restored from null JSON data object.");
-            try
-            {
-                var restoredRandomizer = deserializationMethod(data, options);
-                if (restoredRandomizer != null)
-                    _randomizer = restoredRandomizer;
-            }
-            catch (Exception ex)
-            {
-                throw new ConfigurationException("Restoring randomizer configuration exception has occurred.", ex);
-            }
             return this;
         }
 

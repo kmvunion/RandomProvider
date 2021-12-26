@@ -6,8 +6,7 @@ namespace RandomProvider.Tests.StringRandomizer
 {
     public class StringRandomizerBuilderTests
     {
-
-        private StringRandomizerBuilder _builder;
+        private StringRandomizerBuilder? _builder;
 
         [SetUp]
         public void Setup()
@@ -28,7 +27,7 @@ namespace RandomProvider.Tests.StringRandomizer
             SymbolCases expectedSymbolCases = SymbolCases.Lower;
 
             //Act
-            var result = _builder
+            var result = _builder?
                             .SetDeniedSymbols(expectdDontUsedSymbols)
                             .SetDeniedSymbolsFromString(expectedDontUseString)
                             .SetAllowedSymbolsFromString(expectedUseString)
@@ -125,7 +124,7 @@ namespace RandomProvider.Tests.StringRandomizer
             ConfigurationException ex = Assert.Throws<ConfigurationException>(() => { result.Build(); });
             Assert.IsNotNull(ex);
             Assert.AreEqual(exceptionMessage, ex?.Message);
-        }        
+        }
 
         [Test]
         public void StringRandomizerBuilder_NoConfiguation_ThrowedExeption()
@@ -141,5 +140,6 @@ namespace RandomProvider.Tests.StringRandomizer
             Assert.IsNotNull(ex);
             Assert.AreEqual(exceptionMessage, ex?.Message);
         }
+
     }
 }
