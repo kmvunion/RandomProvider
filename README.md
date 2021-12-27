@@ -1,6 +1,6 @@
 # RandomProvider
 The lightweight package allows generating random strings for your project based on predefined configurations. 
-The complete list of features will describe in the documentation for release version 1.0.1.
+Complete documentation will be available in version 1.1.0.
 
 ## Documentation
 
@@ -108,8 +108,35 @@ var randomizer = new StringRandomizerBuilder()
     .Build();
 ```
 
+### How to generate random value?
+> Randomizer configuration must be provided at first!
 
-Please, have a look examples below for a better understanding of the randomizer configuration.
+Use method **GetValue()** method for getting random of string value.
+
+```csharp
+    var randomizer = new StringRandomizerBuilder()
+    ...    
+    .Build();
+    ...
+    //Generate value
+    var value = randomizer.GetValue();
+```
+
+### How to generate a collection of random values?
+> Randomizer configuration must be provided at first!
+
+Use method **GetValues(int count)** for generating collection of random of string values.
+
+```csharp
+    var randomizer = new StringRandomizerBuilder()
+    ...    
+    .Build();
+    ...
+    //Generating collection of 30 random string values.
+    var values = randomizer.GetValues(30);
+```
+
+> Please, have a look examples below for a better understanding of the randomizer configuration.
 
 ## Examples
 
@@ -145,4 +172,20 @@ var randomizer = new StringRandomizerBuilder()
 ...
 //Generating value
 var value = randomizer.GetValue();
+```
+
+### Example 3
+Use predefined randomizer for generating a collection of the random strings
+
+```csharp
+using KMVUnion.RandomProvider.StringRandomizer;
+...
+//Configuration
+var randomizer = new StringRandomizerBuilder()
+    .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
+    .WithExactLength(7)
+    .Build();
+...
+//Generating collection of 30 random string values.
+var values = randomizer.GetValues(30);
 ```

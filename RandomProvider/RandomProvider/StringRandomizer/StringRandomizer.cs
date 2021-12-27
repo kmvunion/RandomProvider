@@ -35,19 +35,32 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                 return GenerateRandomString(ExectLength.Value);
             }
             else if (MaxLength.HasValue && MaxLength > 0 && MinLength.HasValue && MinLength > 0)
-            {
-                var random = new Random();
-
+            {                
                 if (MinLength > MaxLength)
                 {
                     throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
                 }
+                
+                var random = new Random();
 
                 var dynamicLength = random.Next(MinLength.Value, MaxLength.Value);
                 return GenerateRandomString(dynamicLength);
             }
 
             throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
+        }
+
+        public IEnumerable<string> GetValues(int count)
+        {
+            if (count < 1)
+                throw new ArgumentOutOfRangeException("Argument 'count' must have value greater than 0.");
+
+            List<string> result = new();
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(GetValue());
+            }
+            return result;
         }
 
         private string GenerateRandomString(int length)

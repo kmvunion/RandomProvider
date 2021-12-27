@@ -60,6 +60,5 @@
         /// <param name="cases"></param>
         /// <returns>String randomizer builder</returns>
         IStringRandomizerBuilder WithSymbolsCases(SymbolCases cases);
-
     }
 }
