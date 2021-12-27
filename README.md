@@ -122,7 +122,7 @@ Use method **GetValue()** method for getting random of string value.
     var value = randomizer.GetValue();
 ```
 
-### How to generate collection of random values?
+### How to generate a collection of random values?
 > Randomizer configuration must be provided at first!
 
 Use method **GetValues(int count)** for generating collection of random of string values.
@@ -175,7 +175,7 @@ var value = randomizer.GetValue();
 ```
 
 ### Example 3
-Use predefined randomizer for generating collection of the random strings
+Use predefined randomizer for generating a collection of the random strings
 
 ```csharp
 using KMVUnion.RandomProvider.StringRandomizer;
