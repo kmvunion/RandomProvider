@@ -173,6 +173,7 @@ var randomizer = new StringRandomizerBuilder()
 //Generating value
 var value = randomizer.GetValue();
 ```
+```
 
 ### Example 3
 Use predefined randomizer for generating a collection of the random strings
