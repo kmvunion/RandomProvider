@@ -55,7 +55,7 @@
         /// Generate IEnumerable of random string values
         /// </summary>
         /// <param name="count">Count of generated values</param>
-        /// <returns>List of random string values</returns>
-        IEnumerable<string> GetValueCollection(int count);
+        /// <returns>Enumerator of random string values</returns>
+        IEnumerable<string> GetValues(int count);
     }
 }

@@ -50,7 +50,7 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
         }
 
-        public IEnumerable<string> GetValueCollection(int count)
+        public IEnumerable<string> GetValues(int count)
         {
             if (count < 1)
                 throw new ArgumentOutOfRangeException("Argument 'count' must have value greater than 0.");

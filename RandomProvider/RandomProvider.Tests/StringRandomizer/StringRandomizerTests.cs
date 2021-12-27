@@ -160,7 +160,7 @@ namespace RandomProvider.Tests.StringRandomizer
         }
 
         [Test]
-        public void GetValueCollection_Configured_Success()
+        public void GetValues_Configured_Success()
         {
             //Arrange                        
             char[] expectdUsedSymbols = { 'A', 'b', 'c', 'D' };
@@ -189,7 +189,7 @@ namespace RandomProvider.Tests.StringRandomizer
                             .Build();
 
             //Act
-            var generatedValueCollectionRandomizer = randomizer?.GetValueCollection(expectedCollectionCount);
+            var generatedValueCollectionRandomizer = randomizer?.GetValues(expectedCollectionCount);
 
             //Assert
             Assert.IsNotNull(generatedValueCollectionRandomizer);
@@ -202,7 +202,7 @@ namespace RandomProvider.Tests.StringRandomizer
         }
 
         [Test]        
-        public void GetValueCollection_ConfiguredIncorrectMixLength_ThrowedException()
+        public void GetValues_ConfiguredIncorrectMixLength_ThrowedException()
         {
             //Arrange                        
             char[] expectdUsedSymbols = { 'A', 'b', 'c', 'D' };
@@ -232,7 +232,7 @@ namespace RandomProvider.Tests.StringRandomizer
                             .Build();
 
             //Act
-            ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(() => { randomizer?.GetValueCollection(expectedCollectionCount); });
+            ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(() => { randomizer?.GetValues(expectedCollectionCount); });
 
             //Assert
             Assert.IsNotNull(ex);

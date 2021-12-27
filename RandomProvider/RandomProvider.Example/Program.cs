@@ -4,6 +4,7 @@ using KMVUnion.RandomProvider.StringRandomizer;
 Example1();
 Example2();
 Example3();
+Example4();
 
 Console.ReadLine();
 
@@ -59,16 +60,16 @@ void Example3()
 void Example4()
 {
     var randomizer = new StringRandomizerBuilder()
-        .SetAllowedSymbols(new[] { '1', '2', '3' })
-        .WithExactLength(50)
+        .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
+        .WithExactLength(5)
         .Build();
 
-    var genereatedValues = GenrateValues(randomizer);
+    var genereatedValues = GenrateCollectionOfValues(randomizer);
 
     //Printing configuration and result 
     PrintHelpers.PrintConfiguration(randomizer,
-        "Example 3.",
-        "Example of using only symbols configuration and do not use symbols from excluding string. Also only Upper character cases has applied. ");
+        "Example 4.",
+        "Example of using of the generating collection random strings.");
     PrintHelpers.PrintTestsRezults(genereatedValues);
 }
 
@@ -78,6 +79,19 @@ List<string> GenrateValues(IStringRandomizer randomizer, int numberOfExamples = 
     for (int i = 0; i < numberOfExamples; i++)
     {
         res.Add(randomizer.GetValue());
+    }
+
+    return res;
+}
+
+List<string> GenrateCollectionOfValues(IStringRandomizer randomizer, int numberOfExamples = 3, int numberOfItems = 4)
+{
+    var res = new List<string>();
+    for (int i = 0; i < numberOfExamples; i++)
+    {
+        var value = randomizer.GetValues(numberOfItems);
+        var text = $"[{string.Join(", ", value.ToArray())}]";
+        res.Add(text);
     }
 
     return res;
