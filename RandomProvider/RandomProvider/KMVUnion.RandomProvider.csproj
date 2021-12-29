@@ -9,7 +9,7 @@
   <PropertyGroup>
     <PackageId>KMVUnion.RandomProvider</PackageId>
     <Title>KMVUnion.RandomProvider</Title>
-    <Version>0.0.9</Version>
+    <Version>1.1.0</Version>
     <Authors>M. Karnaruk</Authors>
     <Company>KMV Union</Company>
     <PackageTags>Random; Generator; String;</PackageTags>

@@ -1,8 +1,9 @@
-﻿using System.Text;
+﻿using KMVUnion.RandomProvider.Common;
+using System.Text;
 
 namespace KMVUnion.RandomProvider.StringRandomizer
 {
-    public sealed class StringRandomizer : IStringRandomizer
+    public sealed class StringRandomizer : BaseSymbolRandomizer, IStringRandomizer
     {
 
         private readonly Lazy<char[]> _template;
@@ -17,14 +18,6 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         public int? MaxLength { get; internal set; } = null;
 
         public int? ExectLength { get; internal set; } = null;
-
-        public char[] AllowedSymbols { get; internal set; } = Array.Empty<char>();
-
-        public string AllowedSymbolsFromString { get; internal set; } = String.Empty;
-
-        public char[] DeniedSymbols { get; internal set; } = Array.Empty<char>();
-
-        public string DeniedSymbolsFromString { get; internal set; } = String.Empty;
 
         public SymbolCases SymbolCases { get; internal set; } = SymbolCases.Mixed;
 

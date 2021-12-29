@@ -1,9 +1,11 @@
-﻿namespace KMVUnion.RandomProvider.StringRandomizer
+﻿using KMVUnion.RandomProvider.Common;
+
+namespace KMVUnion.RandomProvider.StringRandomizer
 {
     /// <summary>
     /// String randomizer
     /// </summary>
-    public interface IStringRandomizer
+    public interface IStringRandomizer : ISymbolRandomizer
     {
         /// <summary>
         /// Get configuration of the minimal length of generated strings
@@ -19,26 +21,6 @@
         /// Get configuration of the exact length of generated strings
         /// </summary>
         int? ExectLength { get; }
-
-        /// <summary>
-        /// Get configuration of allowed symbols from the array
-        /// </summary>
-        char[] AllowedSymbols { get; }
-
-        /// <summary>
-        /// Get configuration of allowed symbols from the string
-        /// </summary>
-        string AllowedSymbolsFromString { get; }
-
-        /// <summary>
-        /// Get configuration of denied symbols from the array
-        /// </summary>
-        char[] DeniedSymbols { get; }
-
-        /// <summary>
-        /// Get configuration of denied symbols from the string
-        /// </summary>
-        string DeniedSymbolsFromString { get; }
 
         /// <summary>
         /// Get configuration of the symbols cases for generated values
