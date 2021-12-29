@@ -5,21 +5,21 @@
         /// <summary>
         /// Not specified cases. Use symbol cases provided by template
         /// </summary>
-        None,
+        None = 0, 
 
         /// <summary>
         /// Mixed option includes both lower and upper cases for providing 
         /// </summary>
-        Mixed,
+        Mixed = 1,
 
         /// <summary>
         /// Lower option provides all symbols in the lower case. 
         /// </summary>
-        Lower,
+        Lower = 2,
 
         /// <summary>
         /// Upper option provides all symbols in the upper case. 
         /// </summary>
-        Upper
+        Upper = 3
     }
 }
