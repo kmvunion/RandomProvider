@@ -6,14 +6,6 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 {
     public sealed class StringRandomizer : BaseSymbolRandomizer, IStringRandomizer
     {
-
-        private readonly Lazy<char[]> _template;
-
-        internal StringRandomizer()
-        {
-            _template = new Lazy<char[]>(() => { return BuildTemplate(); });
-        }
-
         public int? MinLength { get; internal set; } = null;
 
         public int? MaxLength { get; internal set; } = null;
@@ -71,19 +63,15 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             return ressult.ToString();
         }
 
-        private char[] BuildTemplate()
+        protected override void ModifyAllowedSymbols(ref List<char> items)
         {
-            var symbols = GetAllAllowedSymbols();
-
             switch (SymbolCases)
             {
-                case SymbolCases.Lower: symbols = symbols.ToLower(); break;
-                case SymbolCases.Upper: symbols = symbols.ToUpper(); break;
-                case SymbolCases.Mixed: symbols = symbols.ToMixCase(); break;
+                case SymbolCases.Lower: items = items.ToLower(); break;
+                case SymbolCases.Upper: items = items.ToUpper(); break;
+                case SymbolCases.Mixed: items = items.ToMixCase(); break;
                 case SymbolCases.None: break;
             }
-
-            return ExcludeDeniedSymbolsFrom(symbols).ToArray();
         }
     }
 }

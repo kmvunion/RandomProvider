@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KMVUnion.RandomProvider.Common
+﻿namespace KMVUnion.RandomProvider.Common
 {
-    public class BaseSymbolRandomizer : ISymbolRandomizer
+    public abstract class BaseSymbolRandomizer : ISymbolRandomizer
     {
+        protected readonly Lazy<char[]> _template;
+
+        internal BaseSymbolRandomizer()
+        {
+            _template = new Lazy<char[]>(() => { return BuildTemplate(); });
+        }
+
         public char[] AllowedSymbols { get; internal set; } = Array.Empty<char>();
 
         public string AllowedSymbolsFromString { get; internal set; } = String.Empty;
@@ -47,5 +48,14 @@ namespace KMVUnion.RandomProvider.Common
             initialSymbols.RemoveAll(s => deniedSymbols.Contains(s));
             return initialSymbols;
         }
+
+        private char[] BuildTemplate()
+        {
+            var symbols = GetAllAllowedSymbols();
+            ModifyAllowedSymbols(ref symbols);
+            return ExcludeDeniedSymbolsFrom(symbols).ToArray();
+        }
+
+        protected abstract void ModifyAllowedSymbols(ref List<char> items);
     }
 }
