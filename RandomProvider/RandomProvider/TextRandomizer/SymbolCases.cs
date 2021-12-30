@@ -1,4 +1,4 @@
-﻿namespace KMVUnion.RandomProvider.StringRandomizer
+﻿namespace KMVUnion.RandomProvider.TextRandomizer
 {
     public enum SymbolCases
     {
@@ -20,6 +20,6 @@
         /// <summary>
         /// Upper option provides all symbols in the upper case. 
         /// </summary>
-        Upper 
+        Upper
     }
 }
