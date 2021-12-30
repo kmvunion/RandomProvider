@@ -1,5 +1,6 @@
 ﻿using KMVUnion.RandomProvider.Common;
 using System.Text;
+using KMVUnion.RandomProvider.Common.Extensions;
 
 namespace KMVUnion.RandomProvider.StringRandomizer
 {
@@ -72,49 +73,17 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 
         private char[] BuildTemplate()
         {
-            var symbols = new List<char>();
-
-            symbols.AddRange(AllowedSymbols);
-            if (!string.IsNullOrEmpty(AllowedSymbolsFromString))
-            {
-                symbols.AddRange(AllowedSymbolsFromString.ToArray());
-            }
+            var symbols = GetAllAllowedSymbols();
 
             switch (SymbolCases)
             {
-                case SymbolCases.Lower:
-                    symbols = symbols.Select(x => Char.ToLower(x)).ToList(); break;
-                case SymbolCases.Upper:
-                    symbols = symbols.Select(x => Char.ToUpper(x)).ToList(); break;
-                case SymbolCases.Mixed:
-                    symbols = BuildMixed(symbols); break;
-                case SymbolCases.None:
-                    break;
+                case SymbolCases.Lower: symbols = symbols.ToLower(); break;
+                case SymbolCases.Upper: symbols = symbols.ToUpper(); break;
+                case SymbolCases.Mixed: symbols = symbols.ToMixCase(); break;
+                case SymbolCases.None: break;
             }
 
-            symbols = symbols.Distinct().ToList();
-            symbols.RemoveAll(s => DeniedSymbols.Contains(s));
-
-            if (!string.IsNullOrEmpty(DeniedSymbolsFromString))
-            {
-                symbols.RemoveAll(s => DeniedSymbolsFromString.ToArray().Contains(s));
-            }
-
-            return symbols.ToArray();
-        }
-
-        private static List<char> BuildMixed(List<char> symbols)
-        {
-            if (symbols == null || symbols.Count < 2)
-            {
-                return new();
-            }
-
-            var borderRange = Convert.ToInt32(Math.Floor((decimal)(symbols.Count / 2)));
-            var result = symbols.Take(borderRange).Select(x => char.ToLower(x)).ToList();
-            result.AddRange(symbols.Skip(borderRange).Select(x => char.ToUpper(x)).ToList());
-
-            return result;
+            return ExcludeDeniedSymbolsFrom(symbols).ToArray();
         }
     }
 }
