@@ -17,6 +17,12 @@ namespace KMVUnion.RandomProvider.TextRandomizer
         /// </summary>
         TextAlign Align { get; }
 
+
+        /// <summary>
+        /// Get configuration of the symbols cases for generated values
+        /// </summary>
+        SymbolCases SymbolCases { get; }
+
         /// <summary>
         /// Generate random noisy text
         /// </summary>
