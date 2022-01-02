@@ -8,14 +8,10 @@ namespace KMVUnion.RandomProvider.Common.Extensions
 {
     internal static class StringExtensions
     {
-        internal static string AddLeft(this string item, int rowLength, char symbol)
+        internal static string PadSides(this string item, int rowLength, char symbol)
         {
-            return $"{new string(symbol, rowLength - item.Length)}{item}";
-        }
-
-        internal static string AddRight(this string item, int rowLength, char symbol)
-        {
-            return $"{item}{new string(symbol, rowLength - item.Length)}{item}";
+            int sidelength = Convert.ToInt32(Math.Floor((decimal)((rowLength - item.Length) / 2)));            
+            return $"{new string(symbol, sidelength)}{item}{new string(symbol, rowLength-item.Length-sidelength)}";
         }
     }
 }

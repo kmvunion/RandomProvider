@@ -27,7 +27,26 @@ namespace KMVUnion.RandomProvider.TextRandomizer
 
         public IEnumerable<string> GetNoisyText(int symbols)
         {
-            throw new NotImplementedException();
+            var result = new List<string>();
+            while ((result.Count + 1) * RowLength <= symbols)
+            {
+                result.Add(_noisyStringRandomizer.Value.GetValue(RowLength));
+            }
+
+            var restSymbols = symbols - result.Count * RowLength;
+            if (restSymbols > 0)
+            {
+                var lastRow = _noisyStringRandomizer.Value.GetValue(restSymbols);
+                switch (Align)
+                {
+                    case TextAlign.Justify:
+                    case TextAlign.Left: result.Add(lastRow.PadRight(RowLength, ' ')); break;
+                    case TextAlign.Right: result.Add(lastRow.PadLeft(RowLength, ' ')); break;
+                    case TextAlign.Center: result.Add(lastRow.PadSides(RowLength, ' ')); break;                    
+                }
+            }
+
+            return result;
         }
 
         public IEnumerable<string> GetSentencefiedText(int words)
@@ -54,13 +73,13 @@ namespace KMVUnion.RandomProvider.TextRandomizer
         internal IStringRandomizer NoisyRandomizer()
         {
             return _stringRandomizerBuilder
-                .SetAllowedSymbols (AllowedSymbols)
-                .SetDeniedSymbols (DeniedSymbols)
-                .SetAllowedSymbolsFromString (AllowedSymbolsFromString)
-                .SetDeniedSymbolsFromString (DeniedSymbolsFromString)
+                .SetAllowedSymbols(AllowedSymbols)
+                .SetDeniedSymbols(DeniedSymbols)
+                .SetAllowedSymbolsFromString(AllowedSymbolsFromString)
+                .SetDeniedSymbolsFromString(DeniedSymbolsFromString)
                 .WithExactLength(RowLength)
                 .WithSymbolsCases((StringRandomizer.SymbolCases)SymbolCases)
-                .Build ();
+                .Build();
         }
     }
 }

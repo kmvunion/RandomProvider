@@ -21,18 +21,28 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                 return GenerateRandomString(ExectLength.Value);
             }
             else if (MaxLength.HasValue && MaxLength > 0 && MinLength.HasValue && MinLength > 0)
-            {                
+            {
                 if (MinLength > MaxLength)
                 {
                     throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
                 }
-                
+
                 var random = new Random();
 
                 var dynamicLength = random.Next(MinLength.Value, MaxLength.Value);
                 return GenerateRandomString(dynamicLength);
             }
 
+            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
+        }
+
+        public string GetValue(int exactLength)
+        {
+            if (exactLength > 0)
+            {
+                return GenerateRandomString(exactLength);
+            }
+            
             throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
         }
 

@@ -1,4 +1,5 @@
 ﻿using KMVUnion.RandomProvider.StringRandomizer;
+using KMVUnion.RandomProvider.TextRandomizer;
 using System.Collections;
 using System.Linq.Expressions;
 
@@ -26,6 +27,25 @@ namespace KMVUnion.RandomProvider.Example
             Console.ForegroundColor = predefinedColor;
         }
 
+        public static void PrintTestsRezultsAsText(List<List<string>> generatedValues)
+        {
+            var predefinedColor = Console.ForegroundColor;
+
+            for (int i = 0; i < generatedValues.Count; i++)
+            {
+                Console.ForegroundColor = HiddenColor;
+                Console.WriteLine($" {i + 1}. ");
+                Console.ForegroundColor = TextColor;                
+                foreach (var value in generatedValues[i])
+                {
+                    Console.WriteLine($"{value}");
+                }
+                Console.WriteLine();
+            }
+
+            Console.ForegroundColor = predefinedColor;
+        }
+
         public static void PrintConfiguration(IStringRandomizer randomizer, string header, string description)
         {
             Console.WriteLine();
@@ -44,7 +64,24 @@ namespace KMVUnion.RandomProvider.Example
             Console.WriteLine("".FillUpToLength(80,'-'));
         }
 
-        private static void PrintValue<TProperty>(IStringRandomizer randomizer, Expression<Func<IStringRandomizer, TProperty>> propertyExpression)
+        public static void PrintConfiguration(ITextRandomizer randomizer, string header, string description)
+        {
+            Console.WriteLine();
+            PrintHeader(header);
+            PrintDescription(description);
+            Console.WriteLine();
+            PrintValue(randomizer, v => v.AllowedSymbols);
+            PrintValue(randomizer, v => v.DeniedSymbols);
+            PrintValue(randomizer, v => v.AllowedSymbolsFromString);
+            PrintValue(randomizer, v => v.DeniedSymbolsFromString);                        
+            PrintValue(randomizer, v => v.SymbolCases);
+            PrintValue(randomizer, v => v.RowLength);
+            PrintValue(randomizer, v => v.Align);
+
+            Console.WriteLine("".FillUpToLength(80, '-'));
+        }
+
+        private static void PrintValue<TProperty,T>(T randomizer, Expression<Func<T, TProperty>> propertyExpression)
         {
             var expression = (MemberExpression)propertyExpression.Body;
             var name = expression.Member.Name;
@@ -79,7 +116,7 @@ namespace KMVUnion.RandomProvider.Example
             Console.ForegroundColor = predefinedColor;
         }
 
-        private static void PrintHeader(string text)
+        internal static void PrintHeader(string text)
         {
             var predefinedColor = Console.ForegroundColor;
             Console.ForegroundColor = HeaderColor;

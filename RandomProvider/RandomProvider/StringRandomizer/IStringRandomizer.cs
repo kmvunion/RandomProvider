@@ -34,6 +34,12 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         string GetValue();
 
         /// <summary>
+        /// Generate random string value of exact length
+        /// </summary>
+        /// <returns>Random string value</returns>
+        string GetValue(int exactLength);
+
+        /// <summary>
         /// Generate IEnumerable of random string values
         /// </summary>
         /// <param name="count">Count of generated values</param>
