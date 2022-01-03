@@ -18,19 +18,11 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         {
             if (ExectLength.HasValue && ExectLength > 0)
             {
-                return GenerateRandomString(ExectLength.Value);
+                return GetValue(ExectLength.Value);
             }
             else if (MaxLength.HasValue && MaxLength > 0 && MinLength.HasValue && MinLength > 0)
             {
-                if (MinLength > MaxLength)
-                {
-                    throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
-                }
-
-                var random = new Random();
-
-                var dynamicLength = random.Next(MinLength.Value, MaxLength.Value);
-                return GenerateRandomString(dynamicLength);
+                return GetValue(MinLength.Value, MaxLength.Value);                 
             }
 
             throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
@@ -46,6 +38,24 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
         }
 
+        public string GetValue(int minLength, int maxLength)
+        {
+            if (maxLength > 0 && minLength > 0)
+            {
+                if (minLength > maxLength)
+                {
+                    throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
+                }
+
+                var random = new Random();
+
+                var dynamicLength = random.Next(minLength, maxLength);
+                return GenerateRandomString(dynamicLength);
+            }
+
+            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
+        }
+
         public IEnumerable<string> GetValues(int count)
         {
             if (count < 1)
@@ -56,6 +66,7 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             {
                 result.Add(GetValue());
             }
+
             return result;
         }
 
@@ -82,6 +93,6 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                 case SymbolCases.Mixed: items = items.ToMixCase(); break;
                 case SymbolCases.None: break;
             }
-        }
+        }  
     }
 }

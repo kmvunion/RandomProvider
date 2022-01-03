@@ -14,7 +14,7 @@
     <Company>KMV Union</Company>
     <PackageTags>Random; Generator; String;</PackageTags>
     <Description>
-      This library allows configure and generate randomized strings in your application.
+      This library allows configure and generate randomized strings/text into your application.
     </Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl></PackageProjectUrl>

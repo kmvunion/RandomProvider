@@ -36,8 +36,17 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         /// <summary>
         /// Generate random string value of exact length
         /// </summary>
-        /// <returns>Random string value</returns>
+        /// <param name="exactLength">Exact length</param>
+        /// <returns></returns>
         string GetValue(int exactLength);
+
+        /// <summary>
+        /// Generate random string value in a range of length
+        /// </summary>
+        /// <param name="minLength">Minimum length</param>
+        /// <param name="maxLength">Maximum length</param>
+        /// <returns>Random string value</returns>
+        string GetValue(int minLength, int maxLength);
 
         /// <summary>
         /// Generate IEnumerable of random string values
