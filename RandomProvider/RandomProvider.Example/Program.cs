@@ -17,5 +17,9 @@ TextRandomizerExamples.Example5();
 TextRandomizerExamples.Example6();
 TextRandomizerExamples.Example7();
 TextRandomizerExamples.Example8();
+TextRandomizerExamples.Example9();
+TextRandomizerExamples.Example10();
+TextRandomizerExamples.Example11();
+TextRandomizerExamples.Example12();
 
 Console.ReadLine();

@@ -10,12 +10,14 @@ namespace KMVUnion.RandomProvider.TextRandomizer
         private IStringRandomizerBuilder _stringRandomizerBuilder = new StringRandomizerBuilder();
         private Lazy<IStringRandomizer> _noisyStringRandomizer;
         private Lazy<IStringRandomizer> _wordyStringRandomizer;
+        private Lazy<IStringRandomizer> _sentencesRandomizer;
         private (int minLength, int maxLength)[] _wordLengthDistribution = new (int, int)[] { (1, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 12), (13, 28) };
 
         public TextRandomizer()
         {
             _noisyStringRandomizer = new Lazy<IStringRandomizer>(() => { return NoisyRandomizer(); });
             _wordyStringRandomizer = new Lazy<IStringRandomizer>(() => { return WordyRandomizer(); });
+            _sentencesRandomizer = new Lazy<IStringRandomizer>(() => { return SentencesRandomizer(); });
         }
 
         public int RowLength { get; internal set; } = 80;
@@ -24,15 +26,15 @@ namespace KMVUnion.RandomProvider.TextRandomizer
 
         public SymbolCases SymbolCases { get; internal set; } = SymbolCases.Mixed;
 
-        public IEnumerable<string> GetNoisyText(int symbols)
+        public IEnumerable<string> GetNoisyText(int symbolsCount)
         {
             var result = new List<string>();
-            while ((result.Count + 1) * RowLength <= symbols)
+            while ((result.Count + 1) * RowLength <= symbolsCount)
             {
                 result.Add(_noisyStringRandomizer.Value.GetValue(RowLength));
             }
 
-            var restSymbols = symbols - result.Count * RowLength;
+            var restSymbols = symbolsCount - result.Count * RowLength;
             if (restSymbols > 0)
             {
                 var lastRow = _noisyStringRandomizer.Value.GetValue(restSymbols);
@@ -42,9 +44,37 @@ namespace KMVUnion.RandomProvider.TextRandomizer
             return result;
         }
 
-        public IEnumerable<string> GetSentencefiedText(int words)
+        public IEnumerable<string> GetSentencesText(int wordCount)
         {
-            throw new NotImplementedException();
+            List<string> words = new List<string>();
+            StringBuilder row = new StringBuilder();
+
+            var configurationSentence = new ConfiguratorSentence();
+
+            for (int i = 0; i < wordCount; i++)
+            {
+                var rangeValue = GetWordLengthDistribution();
+                var word = _sentencesRandomizer.Value.GetValue(rangeValue.minLength, Math.Min(rangeValue.maxLength, RowLength - 1));
+                word = configurationSentence.RecordingWord(word, i == wordCount - 1);
+                
+                if (row.Length + word.Length + 1 < RowLength)
+                {
+                     row.Append(row.Length == 0 ? word : $" {word}");
+                }
+                else
+                {
+                    words.Add(ApplyAlignPolicy(row.ToString()));
+                    row.Clear();
+                    row.Append(row.Length == 0 ? word : $" {word}");
+                }
+
+                if (i + 1 == wordCount)
+                {
+                    words.Add(ApplyAlignPolicy(row.ToString()));
+                }
+            }
+
+            return words;
         }
 
         public IEnumerable<string> GetWordyText(int wordCount)
@@ -101,6 +131,18 @@ namespace KMVUnion.RandomProvider.TextRandomizer
                 .SetDeniedSymbolsFromString(DeniedSymbolsFromString)
                 .WithExactLength(RowLength)
                 .WithSymbolsCases((StringRandomizer.SymbolCases)SymbolCases)
+                .Build();
+        }
+
+        internal IStringRandomizer SentencesRandomizer()
+        {
+            return _stringRandomizerBuilder
+                .SetAllowedSymbols(AllowedSymbols)
+                .SetDeniedSymbols(DeniedSymbols)
+                .SetAllowedSymbolsFromString(AllowedSymbolsFromString)
+                .SetDeniedSymbolsFromString(DeniedSymbolsFromString)
+                .WithExactLength(RowLength)
+                .WithSymbolsCases(StringRandomizer.SymbolCases.Lower)
                 .Build();
         }
 

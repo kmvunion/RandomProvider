@@ -10,6 +10,8 @@
 
         internal static string Justify(this string item, int rowLength, char symbol)
         {
+            if (item.Length > rowLength)
+                throw new ArgumentOutOfRangeException(nameof(item), $"Cannot justify string [{item}] into configured length {rowLength}.");
             var result = item.NormolizeWordingInRow(symbol);
             int spacesCount = result.ToList().Where(x => x.Equals(symbol)).Count();
             if (spacesCount > 0)
@@ -36,6 +38,17 @@
             }
 
             return result;
+        }
+
+        internal static string StartFromCapital(this string item)
+        {
+            if (string.IsNullOrWhiteSpace(item))
+                return item;
+
+            if (item.Length < 2)
+                return item.ToUpper();
+
+            return char.ToUpperInvariant(item[0]) + item.Substring(1).ToLower();
         }
     }
 }
