@@ -57,7 +57,7 @@ namespace KMVUnion.RandomProvider.Example
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
                 "Example 3.",
-                "Generating noisy text with aligning text in the center.");
+                "Generating noisy text with aligning in the center.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
@@ -73,8 +73,8 @@ namespace KMVUnion.RandomProvider.Example
 
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
-                "Example 3.",
-                "Generating noisy text with aligning text in justify mode. According to noisy text is generating text should be aligned by default (left).");
+                "Example 4.",
+                "Generating noisy text with aligning in the justify mode.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
@@ -125,7 +125,7 @@ namespace KMVUnion.RandomProvider.Example
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
                 "Example 7.",
-                "Generating wordy text with aligning text in the center.");
+                "Generating wordy text with aligning in the center.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
@@ -142,7 +142,7 @@ namespace KMVUnion.RandomProvider.Example
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
                 "Example 8.",
-                "Generating wordy text with aligning text in justify mode. According to wordy text is generating text should be aligned by default (left).");
+                "Generating wordy text with aligning in the justify mode.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
@@ -159,7 +159,7 @@ namespace KMVUnion.RandomProvider.Example
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
                 "Example 9.",
-                "Generating sentences text with aligning text from the left side.");
+                "Generating text which consist of set of sentences with aligning text from the left side.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
@@ -176,7 +176,7 @@ namespace KMVUnion.RandomProvider.Example
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
                 "Example 10.",
-                "Generating sentences text with aligning text from the right side.");
+                "Generating text which consist of set of sentences with aligning text from the right side.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
@@ -193,7 +193,7 @@ namespace KMVUnion.RandomProvider.Example
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
                 "Example 11.",
-                "Generating sentences text with aligning text in the center.");
+                "Generating text which consist of set of sentences with aligning text in the center.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
@@ -201,16 +201,16 @@ namespace KMVUnion.RandomProvider.Example
         {
             var randomizer = new TextRandomizerBuilder()
                         .SetAllowedSymbols(new[] { 'k', 'G', 'h', 'l', 'M', 'a', 'B', 'C', 'D', 'e', 'f' })
-                        .WithRowLength(15)
+                        .WithRowLength(80)
                         .WithTextAlign(TextAlign.Justify)
                         .Build();
 
-            var genereatedValues = GenrateSentencesValues(randomizer, 8,1);
+            var genereatedValues = GenrateSentencesValues(randomizer, 40);
 
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
                 "Example 12.",
-                "Generating sentences text with aligning text in the justify mode.");
+                "Generating text which consist of set of sentences with aligning in the justify mode.");
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 

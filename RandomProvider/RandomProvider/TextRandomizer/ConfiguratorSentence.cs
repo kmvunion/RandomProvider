@@ -24,7 +24,7 @@ namespace KMVUnion.RandomProvider.TextRandomizer
         private void Reset()
         {
             _currentIndex = 0;
-            _targetWordCount = _randomizer.Next(3, 20);
+            _targetWordCount = _randomizer.Next(3, 15);
         }
 
         public string RecordingWord(string item, bool isLastWord)
@@ -32,7 +32,8 @@ namespace KMVUnion.RandomProvider.TextRandomizer
             if (_currentIndex == 0)
             {
                 _currentIndex++;
-                return item.StartFromCapital();
+                var postSymbol = isLastWord ? GetFinalSymbol() : string.Empty;
+                return $"{item.StartFromCapital()}{postSymbol}";
             }
             else if (_currentIndex == _targetWordCount || isLastWord)
             {
