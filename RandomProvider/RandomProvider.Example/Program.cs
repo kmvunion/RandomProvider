@@ -1,10 +1,12 @@
 ﻿using KMVUnion.RandomProvider.Example;
+using System.Reflection;
 
+string reportName = GetReportName();
 #if (!DEBUG)
 FileStream ostrm;
 StreamWriter writer;
 TextWriter oldOut = Console.Out;
-string fileName = @".\console_234.txt";
+string fileName = $".\\{reportName}.txt";
 
 try
 {
@@ -20,12 +22,16 @@ catch (Exception e)
 Console.SetOut(writer);
 #endif
 
+Console.WriteLine($"Examples: {reportName}");
+
 PrintHelpers.PrintHeader(" String Randomizer Examples ");
 
 StringRandomizerExamples.Example1();
 StringRandomizerExamples.Example2();
 StringRandomizerExamples.Example3();
 StringRandomizerExamples.Example4();
+StringRandomizerExamples.Example5();
+StringRandomizerExamples.Example6();
 
 Console.WriteLine();
 PrintHelpers.PrintHeader(" Text Randomizer Examples ");
@@ -53,3 +59,9 @@ files.ToList().ForEach(s => Console.WriteLine(s));
 #if DEBUG
 Console.ReadLine();
 #endif
+
+
+string GetReportName()
+{
+    return $"KMVUnion.RandomProvider_{DateTime.UtcNow:MM/dd/yyyy HH.mm.ss}";
+}
