@@ -22,10 +22,10 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             }
             else if (MaxLength.HasValue && MaxLength > 0 && MinLength.HasValue && MinLength > 0)
             {
-                return GetValue(MinLength.Value, MaxLength.Value);                 
+                return GetValue(MinLength.Value, MaxLength.Value);
             }
 
-            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
+            throw new ConfigurationException("Incorrect randomizer configuration");
         }
 
         public string GetValue(int exactLength)
@@ -34,32 +34,32 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             {
                 return GenerateRandomString(exactLength);
             }
-            
-            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
+
+            throw new ArgumentOutOfRangeException(nameof(exactLength));
         }
 
         public string GetValue(int minLength, int maxLength)
         {
-            if (maxLength > 0 && minLength > 0)
+            if (maxLength < 0)
+                throw new ArgumentOutOfRangeException(nameof(maxLength));
+            if (minLength < 0)
+                throw new ArgumentOutOfRangeException(nameof(minLength));
+
+            if (minLength > maxLength)
             {
-                if (minLength > maxLength)
-                {
-                    throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
-                }
-
-                var random = new Random();
-
-                var dynamicLength = random.Next(minLength, maxLength);
-                return GenerateRandomString(dynamicLength);
+                throw new ConfigurationException("Incorrect randomizer configuration, minLength can not be over maxLength");
             }
 
-            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
+            var random = new Random();
+
+            var dynamicLength = random.Next(minLength, maxLength);
+            return GenerateRandomString(dynamicLength);
         }
 
         public IEnumerable<string> GetValues(int count)
         {
             if (count < 1)
-                throw new ArgumentOutOfRangeException("Argument 'count' must have value greater than 0.");
+                throw new ArgumentOutOfRangeException(nameof(count));
 
             List<string> result = new();
             for (int i = 0; i < count; i++)
@@ -93,6 +93,6 @@ namespace KMVUnion.RandomProvider.StringRandomizer
                 case SymbolCases.Mixed: items = items.ToMixCase(); break;
                 case SymbolCases.None: break;
             }
-        }  
+        }
     }
 }
