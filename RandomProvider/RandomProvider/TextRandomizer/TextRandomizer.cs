@@ -28,6 +28,9 @@ namespace KMVUnion.RandomProvider.TextRandomizer
 
         public IEnumerable<string> GetNoisyText(int symbolsCount)
         {
+            if (symbolsCount < 0)
+                throw new ArgumentOutOfRangeException(nameof(symbolsCount), $"Symbols count must be above 0.");
+
             var result = new List<string>();
             while ((result.Count + 1) * RowLength <= symbolsCount)
             {
@@ -44,59 +47,30 @@ namespace KMVUnion.RandomProvider.TextRandomizer
             return result;
         }
 
+        public void GetNoisyTextToFile(int symbolsCount, string filePath)
+        {
+              File.WriteAllLines(filePath, GetNoisyText(symbolsCount));
+        }
+
         public IEnumerable<string> GetSentencesText(int wordCount)
         {
-            List<string> words = new List<string>();
-            StringBuilder row = new StringBuilder();
-
             var configurationSentence = new ConfiguratorSentence();
+            return GetPartionalRandomText(wordCount, configurationSentence.RecordingWord);
+        }
 
-            for (int i = 0; i < wordCount; i++)
-            {
-                var rangeValue = GetWordLengthDistribution();
-                var word = _sentencesRandomizer.Value.GetValue(rangeValue.minLength, Math.Min(rangeValue.maxLength, RowLength - 1));
-                word = configurationSentence.RecordingWord(word, i == wordCount - 1);
-                
-                if (row.Length + word.Length + 1 < RowLength)
-                {
-                     row.Append(row.Length == 0 ? word : $" {word}");
-                }
-                else
-                {
-                    words.Add(ApplyAlignPolicy(row.ToString()));
-                    row.Clear();
-                    row.Append(row.Length == 0 ? word : $" {word}");
-                }
-
-                if (i + 1 == wordCount)
-                {
-                    words.Add(ApplyAlignPolicy(row.ToString()));
-                }
-            }
-
-            return words;
+        public void GetSentencesTextToFile(int wordCount, string filePath)
+        {
+            File.WriteAllLines(filePath, GetSentencesText(wordCount));
         }
 
         public IEnumerable<string> GetWordyText(int wordCount)
         {
-            List<string> words = new List<string>();
-            StringBuilder row = new StringBuilder();
-            for (int i = 0; i < wordCount; i++)
-            {
-                var rangeValue = GetWordLengthDistribution();
-                var word = _wordyStringRandomizer.Value.GetValue(rangeValue.minLength, rangeValue.maxLength);
+            return GetPartionalRandomText(wordCount);
+        }
 
-                if (row.Length + word.Length + 1 < RowLength)
-                {
-                    row.Append($" {word}");
-                }
-                else
-                {
-                    words.Add(ApplyAlignPolicy(row.ToString()));
-                    row.Clear();
-                }
-            }
-            return words;
+        public void GetWordyTextToFile(int wordCount, string filePath)
+        {
+            File.WriteAllLines(filePath, GetWordyText(wordCount));
         }
 
         protected override void ModifyAllowedSymbols(ref List<char> items)
@@ -110,7 +84,7 @@ namespace KMVUnion.RandomProvider.TextRandomizer
             }
         }
 
-        internal IStringRandomizer NoisyRandomizer()
+        private IStringRandomizer NoisyRandomizer()
         {
             return _stringRandomizerBuilder
                 .SetAllowedSymbols(AllowedSymbols)
@@ -122,7 +96,7 @@ namespace KMVUnion.RandomProvider.TextRandomizer
                 .Build();
         }
 
-        internal IStringRandomizer WordyRandomizer()
+        private IStringRandomizer WordyRandomizer()
         {
             return _stringRandomizerBuilder
                 .SetAllowedSymbols(AllowedSymbols)
@@ -134,7 +108,7 @@ namespace KMVUnion.RandomProvider.TextRandomizer
                 .Build();
         }
 
-        internal IStringRandomizer SentencesRandomizer()
+        private IStringRandomizer SentencesRandomizer()
         {
             return _stringRandomizerBuilder
                 .SetAllowedSymbols(AllowedSymbols)
@@ -146,7 +120,7 @@ namespace KMVUnion.RandomProvider.TextRandomizer
                 .Build();
         }
 
-        internal (int minLength, int maxLength) GetWordLengthDistribution()
+        private (int minLength, int maxLength) GetWordLengthDistribution()
         {
             var combinationsCount = _wordLengthDistribution.Count();
             var randomizer = new Random();
@@ -165,5 +139,42 @@ namespace KMVUnion.RandomProvider.TextRandomizer
                 default: return item;
             }
         }
+
+        private IEnumerable<string> GetPartionalRandomText(int wordCount, Func<string,bool, string>? wordTransformation = null)
+        {
+            if (wordCount < 0)
+                throw new ArgumentOutOfRangeException(nameof(wordCount), $"Words count must be above 0.");
+
+            List<string> words = new List<string>();
+            StringBuilder row = new StringBuilder();
+            for (int i = 0; i < wordCount; i++)
+            {
+                var rangeValue = GetWordLengthDistribution();
+                var word = _wordyStringRandomizer.Value.GetValue(rangeValue.minLength, rangeValue.maxLength);
+
+                if (wordTransformation != null)
+                {
+                    word = wordTransformation(word, i == wordCount - 1);
+                }
+
+                if (row.Length + word.Length + 1 < RowLength)
+                {
+                    row.Append(row.Length == 0 ? word : $" {word}");
+                }
+                else
+                {
+                    words.Add(ApplyAlignPolicy(row.ToString()));
+                    row.Clear();
+                    row.Append(row.Length == 0 ? word : $" {word}");
+                }
+
+                if (i + 1 == wordCount)
+                {
+                    words.Add(ApplyAlignPolicy(row.ToString()));
+                }
+            }
+            return words;
+        }
+
     }
 }

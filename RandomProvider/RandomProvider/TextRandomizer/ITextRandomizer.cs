@@ -31,11 +31,26 @@ namespace KMVUnion.RandomProvider.TextRandomizer
         IEnumerable<string> GetNoisyText(int symbolsCount);
 
         /// <summary>
+        /// Generate random noisy text and store it into the file
+        /// </summary>
+        /// <param name="symbolsCount">number of the symbols</param>
+        /// <param name="filePath">storing file path</param>
+        void GetNoisyTextToFile(int symbolsCount, string filePath);
+
+        /// <summary>
         /// Generate random wordy text
         /// </summary>
         /// <param name="wordCount">number of the words</param>
         /// <returns>Enumerator of strings with generated string</returns>
         IEnumerable<string> GetWordyText(int wordCount);
+
+        /// <summary>
+        /// Generate random wordy text and store it into the file
+        /// </summary>
+        /// <param name="wordCount">number of the words</param>
+        /// <param name="filePath">storing file path</param>
+        /// <returns></returns>
+        void GetWordyTextToFile(int wordCount, string filePath);
 
         /// <summary>
         /// Generate random and similar to the literature text.
@@ -44,5 +59,13 @@ namespace KMVUnion.RandomProvider.TextRandomizer
         /// <param name="wordCount">number of words</param>
         /// <returns>Enumerator of strings with generated string</returns>
         IEnumerable<string> GetSentencesText(int wordCount);
+
+        /// <summary>
+        /// Generate random, similar to the literature text and store it into the file.
+        /// It contains sentences and, each of those starts from a capital letter.        
+        /// </summary>
+        /// <param name="wordCount">number of the words</param>
+        /// <param name="filePath">storing file path</param>
+        void GetSentencesTextToFile(int wordCount, string filePath);
     }
 }

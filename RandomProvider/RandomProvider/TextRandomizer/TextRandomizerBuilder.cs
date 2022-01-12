@@ -14,8 +14,7 @@ namespace KMVUnion.RandomProvider.TextRandomizer
 
         public ITextRandomizer Build()
         {
-            ValidateLength();
-            ValidateTemplate();
+            Validate();
             return _randomizer;
         }
 
@@ -55,17 +54,13 @@ namespace KMVUnion.RandomProvider.TextRandomizer
             return this;
         }
 
-        private void ValidateLength()
-        {
-            if (_randomizer.RowLength < 1)
-                throw new ConfigurationException("Length of the rows cannot be less 0.");
-        }
-
-        private void ValidateTemplate()
+        private void Validate()
         {
             byte minUniqLength = 2;
-
             List<char> targetTemaplate = new();
+
+            if (_randomizer.RowLength < 1)
+                throw new ConfigurationException("Length of the rows cannot be less 0.");
 
             if (!string.IsNullOrEmpty(_randomizer.AllowedSymbolsFromString))
                 targetTemaplate.AddRange(_randomizer.AllowedSymbolsFromString.ToArray());
@@ -76,7 +71,7 @@ namespace KMVUnion.RandomProvider.TextRandomizer
             targetTemaplate = targetTemaplate.Distinct().ToList();
 
             if (!targetTemaplate.Any())
-                throw new ConfigurationException($"Allowed symbols do not configured. Please set either AllowedSymbols or AllowedSymbolsFromString.");
+                throw new ConfigurationException("Allowed symbols do not configured. Please set either AllowedSymbols or AllowedSymbolsFromString.");
 
             if (targetTemaplate?.Count < minUniqLength)
                 throw new ConfigurationException($"Allowed symbols do not configured or unique configuration length is lower then {minUniqLength}.");

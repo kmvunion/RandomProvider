@@ -1,4 +1,5 @@
-﻿using KMVUnion.RandomProvider.TextRandomizer;
+﻿using KMVUnion.RandomProvider.Common;
+using KMVUnion.RandomProvider.TextRandomizer;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,54 @@ namespace RandomProvider.Tests.TextRandomizer
             Assert.AreEqual(expectedAlign, result.Align);
         }
 
-        
+        [Test]
+        public void StringRandomizerBuilder_IncorrectRowLengthConfiguation_ThrowedExeption()
+        {
+            //Arrange
+            string exceptionMessage = "Length of the rows cannot be less 0.";
+
+            var result = _builder
+                .SetAllowedSymbolsFromString("Allowed string template")                
+                .WithTextAlign(TextAlign.Center)
+                .WithRowLength(0);
+
+            //ActAssert
+            ConfigurationException ex = Assert.Throws<ConfigurationException>(() => { result.Build(); });
+            Assert.IsNotNull(ex);
+            Assert.AreEqual(exceptionMessage, ex?.Message);
+        }
+
+        [Test]
+        public void StringRandomizerBuilder_NoneAllowedSymbolsConfigured_ThrowedExeption()
+        {
+            //Arrange
+            string exceptionMessage = "Allowed symbols do not configured. Please set either AllowedSymbols or AllowedSymbolsFromString.";
+
+            var result = _builder                
+                .WithTextAlign(TextAlign.Center)
+                .WithRowLength(10);
+
+            //ActAssert
+            ConfigurationException ex = Assert.Throws<ConfigurationException>(() => { result.Build(); });
+            Assert.IsNotNull(ex);
+            Assert.AreEqual(exceptionMessage, ex?.Message);
+        }
+
+        [Test]
+        public void StringRandomizerBuilder_IncorrectAllowedSymbolsConfiguation_ThrowedExeption()
+        {
+            //Arrange
+            string exceptionMessage = "Allowed symbols do not configured or unique configuration length is lower then 2.";
+
+            var result = _builder
+                .SetAllowedSymbolsFromString("q")
+                .WithTextAlign(TextAlign.Center)                
+                .WithRowLength(10);
+
+            //ActAssert
+            ConfigurationException ex = Assert.Throws<ConfigurationException>(() => { result.Build(); });
+            Assert.IsNotNull(ex);
+            Assert.AreEqual(exceptionMessage, ex?.Message);
+        }
     }
 }
