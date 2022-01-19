@@ -8,17 +8,17 @@ namespace KMVUnion.RandomProvider.TextRandomizer
     public interface ITextRandomizerBuilder : IBaseRandomizer<ITextRandomizer>, ISymbolRandomizerBuilder<ITextRandomizerBuilder>
     {
         /// <summary>
-        /// Set align text mode
+        /// Set align text mode.
         /// </summary>
-        /// <param name="align">Text align</param>
-        /// <returns>Randomizer builder</returns>
+        /// <param name="align">Text align.</param>
+        /// <returns>Randomizer builder.</returns>
         ITextRandomizerBuilder WithTextAlign(TextAlign align);
 
         /// <summary>
-        /// Set text row length
+        /// Set text row length.
         /// </summary>
-        /// <param name="rowLength">Row length</param>
-        /// <returns>Randomizer builder</returns>
+        /// <param name="rowLength">Row length.</param>
+        /// <returns>Randomizer builder.</returns>
         ITextRandomizerBuilder WithRowLength(int rowLength);
     }
 }

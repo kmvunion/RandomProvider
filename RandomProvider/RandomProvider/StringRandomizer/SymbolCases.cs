@@ -3,12 +3,12 @@
     public enum SymbolCases
     {
         /// <summary>
-        /// Not specified cases. Use symbol cases provided by template
+        /// Not specified cases. Use symbol cases provided by template.
         /// </summary>
         None, 
 
         /// <summary>
-        /// Mixed option includes both lower and upper cases for providing 
+        /// Mixed option includes both lower and upper cases for providing.
         /// </summary>
         Mixed,
 
