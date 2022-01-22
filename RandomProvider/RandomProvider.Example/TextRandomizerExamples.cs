@@ -1,9 +1,4 @@
 ﻿using KMVUnion.RandomProvider.TextRandomizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KMVUnion.RandomProvider.Example
 {
@@ -16,9 +11,9 @@ namespace KMVUnion.RandomProvider.Example
                         .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
                         .WithRowLength(30)
                         .WithTextAlign(TextAlign.Left)
-                        .Build();   
+                        .Build();
 
-            var genereatedValues = GenrateNoisyValues(randomizer,100);
+            var genereatedValues = GenrateNoisyValues(randomizer, 100);
 
             //Printing configuration and result 
             PrintHelpers.PrintConfiguration(randomizer,
@@ -30,7 +25,7 @@ namespace KMVUnion.RandomProvider.Example
         public static void Example2()
         {
             var randomizer = new TextRandomizerBuilder()
-                        .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })                        
+                        .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
                         .WithRowLength(30)
                         .WithTextAlign(TextAlign.Right)
                         .Build();
@@ -214,7 +209,7 @@ namespace KMVUnion.RandomProvider.Example
             PrintHelpers.PrintTestsRezultsAsText(genereatedValues);
         }
 
-        private static List<List<string>> GenrateNoisyValues(ITextRandomizer randomizer,int symbolsCount, int numberOfExamples = 3)
+        private static List<List<string>> GenrateNoisyValues(ITextRandomizer randomizer, int symbolsCount, int numberOfExamples = 3)
         {
             var res = new List<List<string>>();
             for (int i = 0; i < numberOfExamples; i++)

@@ -140,6 +140,7 @@ There are few methods that you could use for generating random string values:
 ### Examples 
 **Example 1**
 Use predefined characters for the generating random string values
+
 ```csharp
 using KMVUnion.RandomProvider.StringRandomizer;
 ...
@@ -151,6 +152,10 @@ var randomizer = new StringRandomizerBuilder()
 ...
 //Generating value
 var value = randomizer.GetValue();
+```
+**Result:**
+```
+"FDFggBF"
 ```
 
 **Example 2**
@@ -171,6 +176,10 @@ var randomizer = new StringRandomizerBuilder()
 //Generating value
 var value = randomizer.GetValue();
 ```
+**Result:**
+```
+"viosrnbu"
+```
 
 **Example 3**
 Use predefined randomizer for generating a collection of the random strings
@@ -184,10 +193,13 @@ var randomizer = new StringRandomizerBuilder()
     .WithExactLength(7)
     .Build();
 ...
-//Generating collection of 30 random string values.
-var values = randomizer.GetValues(30);
+//Generating collection of 3 random string values.
+var values = randomizer.GetValues(3);
 ```
-
+**Result:**
+```
+["lCh1l5B","D5Cl1BD","AC1hDg5"]
+```
 **Example 4**
 Although configuration contains a range of lengths from 3 to 10, we can get the random string value of exact length different from the initial randomizer configuration.
 
@@ -336,4 +348,115 @@ Example:
 | void GetSentencesTextToFile(int wordCount, string filePath)|Generate random, similar to the literature text and store it into the file|Contains sentences and, each of those starts from a capital letter|
 
 ### Examples 
+**Example 1**
+Generating noisy text with aligning text from the right side.
+
+```csharp
+using KMVUnion.RandomProvider.TextRandomizer;
+...
+//Configuration
+var randomizer = new TextRandomizerBuilder()
+            .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })                        
+            .WithRowLength(30)
+            .WithTextAlign(TextAlign.Right)
+            .Build();
+...
+var result = randomizer.GetNoisyText(100);
+```
+
+**Result:**
+```
+ElEg1BEBDCgBCChDEhCEAg5DhE1hll
+Cg1hl1lBB5EFDgFlgBlE115lgAEAhA
+BhD5FBEEgD5CDBEl5E5Dllg1llFF5g
+                 ggFB15hhCC
+```
+
+**Example 2**
+Generating wordy text with aligning text from the left side.
+
+```csharp
+using KMVUnion.RandomProvider.TextRandomizer;
+...
+//Configuration
+var randomizer = new TextRandomizerBuilder()
+            .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
+            .WithRowLength(40)
+            .WithTextAlign(TextAlign.Left)
+            .Build();
+...
+//Generating wordy text
+var result = randomizer.GetWordyText(40);
+```
+
+**Result:**
+```
+g5BglD1A1 F hAF5gBg5 51E1lDC DgD1AAA
+Agh D1EClB15B ll1hlC5Cggh FCFEghF
+EF1BC55hF 1hl1AFBhlF F5l lh1DF51 5EgA
+FDAh5AEhD BFDCAlhD h EABBll51DlB
+Dl5AFDgE5D 15lg1l1E BClD1lDAABh
+51BgE1g5 1B ElA5DADg ACDEBEF
+FlFlhC1AAF1 FBA551lg1h BC1Ehg5lD
+EAgD1F5BEC F1BhF DAFCAll A5EB FDDA5A1AB
+BCE51FlAAC l1Eg1Dg 5A5FC1FF1hC
+ElFlh1CCBF Cg5DClBh5gl g1DF5AhB gEEllCl
+```
+
+**Example 3**
+Generating wordy text with aligning in the justify mode.
+
+```csharp
+using KMVUnion.RandomProvider.TextRandomizer;
+...
+//Configuration
+var randomizer = new TextRandomizerBuilder()
+            .SetAllowedSymbols(new[] { '1', 'G', 'h', 'l', '5', 'a', 'B', 'C', 'D', 'e', 'f' })
+            .WithRowLength(40)
+            .WithTextAlign(TextAlign.Justify)
+            .Build();
+...
+// Generating wordy text
+var result = randomizer.GetWordyText(40);
+```
+
+**Result:**
+```
+ABCFgFFB5E 1hECCBF1F 1 FhDlAF5   F1AhhAB
+lD    5F1l11DDFB    FlCEFACgC    1hCgg5A
+FEEE51Dg5FF Bg1DgE1hFh DEAh151AB   ECg5B
+EhFDEl1   BFlCBAAB   EAFABCB    FECAB1C1
+gFD5E1CCACE  CB  DEEFD1EACFC   ghhFFhCBh
+DgC1AED5DFh 1DFDD1hE5FC F5ADCDFhg  EAhBl
+hF1E5FF      l5Dl511gBBD      lDAglBgll1
+5CDCEE1AFC  FD1BB5EEg  FBCDAEF  5DFBCFCC
+CD51ChgAh   AFEDg1hFA   DAEgDBFFAgC    h
+1gDFhlD5   hl   1A1hlFl1h     5hAFhghF51
+```
+
+**Example 4**
+Generating text which consist of set of sentences with aligning text in the center.
+
+```csharp
+using KMVUnion.RandomProvider.TextRandomizer;
+...
+//Configuration
+var randomizer = new TextRandomizerBuilder()
+            .SetAllowedSymbols(new[] { 'k', 'G', 'h', 'l', 'M', 'a', 'B', 'C', 'D', 'e', 'f' })
+            .WithRowLength(80)
+            .WithTextAlign(TextAlign.Center)
+            .Build();
+...
+//Generating text contained pseudo sentences.
+var result = randomizer.GetSentencesText(40);
+```
+
+**Result:**
+```
+   Flglfdg FA CgFggghBFg mgmAkFCBBl kEhEkhlBEmm glFAlhEEDAA BEm BmF BkDhhhBkAl
+     kBECAggAAB kkECkDgCFEm BAlAFgDC. Akbdffhfbll kChE mAhmhkCEE FFBEBCDA Eg
+ DhkmADAE hECDEhCA hFBBEADg lClChAm DFAgABlEBh. Gflbamcfgh BhFklBFCkm EBEkFCBAhF
+ AlDCChgA AhChAlAl mEhFBDlA lEglmDmD? Aldldelmece DlEhEChDkk ABEEBglDBm lmEFkFmh
+                  F AgAm kgFmClFlg CDFBAgmC llBgglk gDBCg hAmAl?
+```
 ---
