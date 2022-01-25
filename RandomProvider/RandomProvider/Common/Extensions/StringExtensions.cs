@@ -1,0 +1,54 @@
+﻿namespace KMVUnion.RandomProvider.Common.Extensions
+{
+    internal static class StringExtensions
+    {
+        internal static string PadSides(this string item, int rowLength, char symbol)
+        {
+            int sidelength = Convert.ToInt32(Math.Floor((decimal)((rowLength - item.Length) / 2)));
+            return $"{new string(symbol, sidelength)}{item}{new string(symbol, rowLength - item.Length - sidelength)}";
+        }
+
+        internal static string Justify(this string item, int rowLength, char symbol)
+        {
+            if (item.Length > rowLength)
+                throw new ArgumentOutOfRangeException(nameof(item), $"Cannot justify string [{item}] into configured length {rowLength}.");
+            var result = item.NormolizeWordingInRow(symbol);
+            int spacesCount = result.ToList().Where(x => x.Equals(symbol)).Count();
+            if (spacesCount > 0)
+            {
+                int newSpaceSize = Convert.ToInt32(Math.Floor((decimal)((rowLength - result.Length) / spacesCount)));
+                result = result.Replace(new string(symbol, 1), new string(symbol, newSpaceSize + 1));
+                var lastSpaceIndex = result.LastIndexOf(symbol);
+                if (lastSpaceIndex > 0)
+                {
+                    return result.Insert(lastSpaceIndex, new string(symbol, rowLength - result.Length));
+                }
+            }
+
+            return result.PadRight(rowLength, symbol);
+        }
+
+        internal static string NormolizeWordingInRow(this string item, char symbol)
+        {
+            var result = item.Trim(symbol);
+
+            while (result.IndexOf(new string(symbol, 2)) > 0)
+            {
+                result.Replace(new string(symbol, 2), new string(symbol, 1));
+            }
+
+            return result;
+        }
+
+        internal static string StartFromCapital(this string item)
+        {
+            if (string.IsNullOrWhiteSpace(item))
+                return item;
+
+            if (item.Length < 2)
+                return item.ToUpper();
+
+            return char.ToUpperInvariant(item[0]) + item.Substring(1).ToLower();
+        }
+    }
+}

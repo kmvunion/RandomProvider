@@ -1,9 +1,8 @@
-﻿using NUnit.Framework;
+﻿using KMVUnion.RandomProvider.TextRandomizer;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RandomProvider.Tests.Helpers
 {
@@ -33,6 +32,28 @@ namespace RandomProvider.Tests.Helpers
             {
                 if (!expectedChars.Contains(item))
                     throw new AssertionException(message ?? $"Assert! Actual string value contains unexpected symbol({item}).");
+            }
+        }
+
+
+        internal static void AssertAlign(string actualString, TextAlign expectedAlign, string? message = null)
+        {
+            if (actualString == null)
+                throw new AssertionException($"Assert! Actual string value is null while expected align {expectedAlign}.");
+            char first = actualString[0];
+            char last = actualString[actualString.Length - 1];
+            var exception = new AssertionException(message ?? $"Assert! Actual string value has not expected align {expectedAlign}. [{actualString}]");
+
+            switch (expectedAlign)
+            {
+                case TextAlign.Left:
+                    if ((first == ' ' && last != ' ') || (first == ' ' && last == ' ')) throw exception; break;
+                case TextAlign.Right:
+                    if ((first != ' ' && last == ' ') || (first == ' ' && last == ' ')) throw exception; break;
+                case TextAlign.Center:
+                    if (first == ' ' && last != ' ') throw exception; break;
+                case TextAlign.Justify:
+                    if (first == ' ' && last != ' ') throw exception; break;
             }
         }
 

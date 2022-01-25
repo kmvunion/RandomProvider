@@ -4,7 +4,7 @@ namespace KMVUnion.RandomProvider.StringRandomizer
 {
     public class StringRandomizerBuilder : IStringRandomizerBuilder
     {
-        private StringRandomizer _randomizer = new();
+        private readonly StringRandomizer _randomizer = new();
 
         public IStringRandomizer Build()
         {

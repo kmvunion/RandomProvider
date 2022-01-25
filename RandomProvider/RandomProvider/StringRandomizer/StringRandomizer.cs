@@ -1,30 +1,16 @@
-﻿using System.Text;
+﻿using KMVUnion.RandomProvider.Common;
+using System.Text;
+using KMVUnion.RandomProvider.Common.Extensions;
 
 namespace KMVUnion.RandomProvider.StringRandomizer
 {
-    public sealed class StringRandomizer : IStringRandomizer
+    public sealed class StringRandomizer : BaseSymbolRandomizer, IStringRandomizer
     {
-
-        private readonly Lazy<char[]> _template;
-
-        internal StringRandomizer()
-        {
-            _template = new Lazy<char[]>(() => { return BuildTemplate(); });
-        }
-
         public int? MinLength { get; internal set; } = null;
 
         public int? MaxLength { get; internal set; } = null;
 
         public int? ExectLength { get; internal set; } = null;
-
-        public char[] AllowedSymbols { get; internal set; } = Array.Empty<char>();
-
-        public string AllowedSymbolsFromString { get; internal set; } = String.Empty;
-
-        public char[] DeniedSymbols { get; internal set; } = Array.Empty<char>();
-
-        public string DeniedSymbolsFromString { get; internal set; } = String.Empty;
 
         public SymbolCases SymbolCases { get; internal set; } = SymbolCases.Mixed;
 
@@ -32,34 +18,55 @@ namespace KMVUnion.RandomProvider.StringRandomizer
         {
             if (ExectLength.HasValue && ExectLength > 0)
             {
-                return GenerateRandomString(ExectLength.Value);
+                return GetValue(ExectLength.Value);
             }
             else if (MaxLength.HasValue && MaxLength > 0 && MinLength.HasValue && MinLength > 0)
-            {                
-                if (MinLength > MaxLength)
-                {
-                    throw new ArgumentOutOfRangeException("Incorrect randomizer configuration. MinLength cannot be over MaxLength");
-                }
-                
-                var random = new Random();
-
-                var dynamicLength = random.Next(MinLength.Value, MaxLength.Value);
-                return GenerateRandomString(dynamicLength);
+            {
+                return GetValue(MinLength.Value, MaxLength.Value);
             }
 
-            throw new ArgumentOutOfRangeException("Incorrect randomizer configuration");
+            throw new ConfigurationException("Incorrect randomizer configuration");
+        }
+
+        public string GetValue(int exactLength)
+        {
+            if (exactLength > 0)
+            {
+                return GenerateRandomString(exactLength);
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(exactLength));
+        }
+
+        public string GetValue(int minLength, int maxLength)
+        {
+            if (maxLength < 0)
+                throw new ArgumentOutOfRangeException(nameof(maxLength));
+            if (minLength < 0)
+                throw new ArgumentOutOfRangeException(nameof(minLength));
+
+            if (minLength > maxLength)
+            {
+                throw new ConfigurationException("Incorrect randomizer configuration, minLength can not be over maxLength");
+            }
+
+            var random = new Random();
+
+            var dynamicLength = random.Next(minLength, maxLength);
+            return GenerateRandomString(dynamicLength);
         }
 
         public IEnumerable<string> GetValues(int count)
         {
             if (count < 1)
-                throw new ArgumentOutOfRangeException("Argument 'count' must have value greater than 0.");
+                throw new ArgumentOutOfRangeException(nameof(count));
 
             List<string> result = new();
             for (int i = 0; i < count; i++)
             {
                 result.Add(GetValue());
             }
+
             return result;
         }
 
@@ -77,51 +84,15 @@ namespace KMVUnion.RandomProvider.StringRandomizer
             return ressult.ToString();
         }
 
-        private char[] BuildTemplate()
+        protected override void ModifyAllowedSymbols(ref List<char> items)
         {
-            var symbols = new List<char>();
-
-            symbols.AddRange(AllowedSymbols);
-            if (!string.IsNullOrEmpty(AllowedSymbolsFromString))
-            {
-                symbols.AddRange(AllowedSymbolsFromString.ToArray());
-            }
-
             switch (SymbolCases)
             {
-                case SymbolCases.Lower:
-                    symbols = symbols.Select(x => Char.ToLower(x)).ToList(); break;
-                case SymbolCases.Upper:
-                    symbols = symbols.Select(x => Char.ToUpper(x)).ToList(); break;
-                case SymbolCases.Mixed:
-                    symbols = BuildMixed(symbols); break;
-                case SymbolCases.None:
-                    break;
+                case SymbolCases.Lower: items = items.ToLower(); break;
+                case SymbolCases.Upper: items = items.ToUpper(); break;
+                case SymbolCases.Mixed: items = items.ToMixCase(); break;
+                case SymbolCases.None: break;
             }
-
-            symbols = symbols.Distinct().ToList();
-            symbols.RemoveAll(s => DeniedSymbols.Contains(s));
-
-            if (!string.IsNullOrEmpty(DeniedSymbolsFromString))
-            {
-                symbols.RemoveAll(s => DeniedSymbolsFromString.ToArray().Contains(s));
-            }
-
-            return symbols.ToArray();
-        }
-
-        private static List<char> BuildMixed(List<char> symbols)
-        {
-            if (symbols == null || symbols.Count < 2)
-            {
-                return new();
-            }
-
-            var borderRange = Convert.ToInt32(Math.Floor((decimal)(symbols.Count / 2)));
-            var result = symbols.Take(borderRange).Select(x => char.ToLower(x)).ToList();
-            result.AddRange(symbols.Skip(borderRange).Select(x => char.ToUpper(x)).ToList());
-
-            return result;
         }
     }
 }
