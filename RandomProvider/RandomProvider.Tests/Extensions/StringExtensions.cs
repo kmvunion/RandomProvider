@@ -24,8 +24,7 @@ namespace RandomProvider.Tests.Extensions
                 replacedFlag = false;
             }
 
-            return item;
-            
+            return item;            
         }
     }
 

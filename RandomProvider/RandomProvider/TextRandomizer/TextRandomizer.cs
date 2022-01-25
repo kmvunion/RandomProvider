@@ -175,6 +175,5 @@ namespace KMVUnion.RandomProvider.TextRandomizer
             }
             return words;
         }
-
     }
 }

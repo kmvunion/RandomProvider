@@ -1,14 +1,10 @@
-﻿using KMVUnion.RandomProvider.Common;
-using KMVUnion.RandomProvider.TextRandomizer;
+﻿using KMVUnion.RandomProvider.TextRandomizer;
 using NUnit.Framework;
+using RandomProvider.Tests.Extensions;
 using RandomProvider.Tests.Helpers;
 using RandomProvider.Tests.TextRandomizer.TestCasesData;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RandomProvider.Tests.Extensions;
 
 namespace RandomProvider.Tests.TextRandomizer
 {
@@ -60,7 +56,7 @@ namespace RandomProvider.Tests.TextRandomizer
             var resultInTrimmedString = String.Join(String.Empty, result.Select(x => x.Trim()).ToArray());
 
             //Assert
-            var resultWordsCount = result.Sum(x=>x.Trim().RemoveDuplicates().GetWordsCount());
+            var resultWordsCount = result.Sum(x => x.Trim().RemoveDuplicates().GetWordsCount());
             Assert.IsNotNull(resultInTrimmedString);
             Assert.AreEqual(length, resultWordsCount);
             foreach (var item in result)
@@ -136,6 +132,5 @@ namespace RandomProvider.Tests.TextRandomizer
             Assert.IsNotNull(ex);
             Assert.AreEqual(exceptionMessage, ex?.Message);
         }
-
     }
 }

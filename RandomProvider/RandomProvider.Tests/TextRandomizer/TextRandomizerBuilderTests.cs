@@ -1,11 +1,6 @@
 ﻿using KMVUnion.RandomProvider.Common;
 using KMVUnion.RandomProvider.TextRandomizer;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RandomProvider.Tests.TextRandomizer
 {
@@ -57,7 +52,7 @@ namespace RandomProvider.Tests.TextRandomizer
             string exceptionMessage = "Length of the rows cannot be less 0.";
 
             var result = _builder
-                .SetAllowedSymbolsFromString("Allowed string template")                
+                .SetAllowedSymbolsFromString("Allowed string template")
                 .WithTextAlign(TextAlign.Center)
                 .WithRowLength(0);
 
@@ -73,7 +68,7 @@ namespace RandomProvider.Tests.TextRandomizer
             //Arrange
             string exceptionMessage = "Allowed symbols do not configured. Please set either AllowedSymbols or AllowedSymbolsFromString.";
 
-            var result = _builder                
+            var result = _builder
                 .WithTextAlign(TextAlign.Center)
                 .WithRowLength(10);
 
@@ -91,7 +86,7 @@ namespace RandomProvider.Tests.TextRandomizer
 
             var result = _builder
                 .SetAllowedSymbolsFromString("q")
-                .WithTextAlign(TextAlign.Center)                
+                .WithTextAlign(TextAlign.Center)
                 .WithRowLength(10);
 
             //ActAssert

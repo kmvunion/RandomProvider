@@ -14,7 +14,6 @@ namespace RandomProvider.Integration.Tests.TextRandomizer
         private ITextRandomizer _randomizer;
         private string _fileName;
 
-
         [SetUp]
         public void SetUp()
         {
@@ -58,8 +57,7 @@ namespace RandomProvider.Integration.Tests.TextRandomizer
         [Test]
         public void GetWordyTextToFile_ALignRightToFile_DataExist()
         {
-            //Arrange
-            int expectedLength = 400;
+            //Arrange            
             int length = 370;
             _randomizer = _builder.WithTextAlign(TextAlign.Right).Build();
 
@@ -78,7 +76,6 @@ namespace RandomProvider.Integration.Tests.TextRandomizer
         public void GetSentencesTextToFile_ALignRightToFile_DataExist()
         {
             //Arrange
-            int expectedLength = 400;
             int length = 370;
             _randomizer = _builder.WithTextAlign(TextAlign.Right).Build();
 

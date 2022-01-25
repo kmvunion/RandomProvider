@@ -140,6 +140,5 @@ namespace RandomProvider.Tests.StringRandomizer
             Assert.IsNotNull(ex);
             Assert.AreEqual(exceptionMessage, ex?.Message);
         }
-
     }
 }
