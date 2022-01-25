@@ -9,14 +9,14 @@ Current version contains following randomizers:
 ---
 ## StringRandomizer
 
-**String randomizer** serves for generating random string values based on predefined configuration. You can configure string length, symbols cases and set of symbols that could be used for generating particular value. ALso you can exclude some set symbols.
+**String randomizer** serves for generating random string values based on predefined configuration. You can configure string length, symbols cases, and a set of symbols that could be used for generating a particular value. Also, you can exclude some set symbols.
 
 ### Configuration methods
 Before starting configuration and using StringRandomizer you should add
 `using KMVUnion.RandomProvider.StringRandomizer;` 
 into **using** section of your class.
 
-For configuring randomizer you can use some or all methods from the interface ```KMVUnion.RandomProvider.StringRandomizer.IStringRandomizerBuilder```. Method ```Build();```  returns an instance of the ```StringRandomizer```. It must be called finaly.
+For configuring randomizer you can use some or all methods from the interface ```KMVUnion.RandomProvider.StringRandomizer.IStringRandomizerBuilder```. Method ```Build();```  returns an instance of the ```StringRandomizer```. It must be called finally.
 
 | Methods | Description | Comments|
 | ------ | ------ | ------ |
@@ -26,8 +26,8 @@ For configuring randomizer you can use some or all methods from the interface ``
 |SetDeniedSymbolsFromString(string templateString)|Set denied symbols from the string.||
 |WithMinLength(int? length)|Set configuration of the minimal length of the result generated random strings.| Must be configured in a pair with **Max Length** and be over **0**.|
 |WithMaxLength(int? length)|Set configuration of the maximum length of the result generated random strings.| Must be configured in a pair with **Min Length** and be over **MinLength**.|
-|WithExactLength(int? length)|Set configuration of the  exact length of the result value.| If you use **ExactLength** than you should ommit a configuration **Min Length** and **Max Length** |
-|WithSymbolsCases(SymbolCases cases)|Set symbols case option for the configuration of generated values.| It could be one of the foure **None, Mixed, Lower, Upper**|
+|WithExactLength(int? length)|Set configuration of the exact length of the result value.| If you use **ExactLength** then you should omit a configuration **Min Length** and **Max Length** |
+|WithSymbolsCases(SymbolCases cases)|Set symbols case option for the configuration of generated values.| It could be one of the four **None, Mixed, Lower, Upper**|
 |Build()| Build an instance of the randomizer based on configuration. |Must be called last in a line of configuration methods.|
 
 #### Length configuration
@@ -42,12 +42,12 @@ var randomizer = new StringRandomizerBuilder()
     ...
     .Build();
 ```
-**Generate length from the range**. In this case each generated value will have a length from the previously configured range.
+**Generate length from the range**. In this case, each generated value will have a length from the previously configured range.
 
 ```csharp
 var randomizer = new StringRandomizerBuilder()
     ...
-    // Using This configuration generated strings will have a length  from the range 3..10
+    // Using this configuration generated strings will have a length  from the range 3..10
     .WithMinLength(3)
     .WithMaxLength(10)
     ...
@@ -75,7 +75,7 @@ var randomizer = new StringRandomizerBuilder()
     .Build();
 ```
 
-You can use any of these techniques or combine them. In thr following case, one approach complements by another one.
+You can use any of these techniques or combine them. In the following case, one approach complements another one.
 
 ```csharp
 var randomizer = new StringRandomizerBuilder()
@@ -117,7 +117,7 @@ It could be one from the fourth:
 
 > By default, the symbol case setting is **None**. 
 
-You can set setting via the method **WithSymbolsCases** of the StringRandomizerBuilder class.
+You can set the setting via the method **WithSymbolsCases** of the StringRandomizerBuilder class.
 
 ```csharp
 var randomizer = new StringRandomizerBuilder()
@@ -127,14 +127,14 @@ var randomizer = new StringRandomizerBuilder()
     .Build();
 ```
 
-### Get ranndom data methods
-There are few methods that you could use for generating random string values:
+### Get random data methods
+There are a few methods that you could use for generating random string values:
 
 | Methods | Description | Comments|
 | ------ | ------ | ------ |
 |string GetValue();|Generate random string value.|It uses configuration predefined while StringRandomizer had been built. |
-|string GetValue(int exactLength);|Generate random string value of exact length.| This method skips preset up length configuration and applies exact length from the argumentof the method.|
-|string GetValue(int minLength, int maxLength);|Generate random string value with length from the range.| This method skips preset up length configuration and applies min, max length from the argument of the method. |
+|string GetValue(int exactLength);|Generate random string value of exact length.| This method skips preset up length configuration and applies exact length from the argument of the method.|
+|string GetValue(int minLength, int maxLength);|Generate random string value with length from the range.| This method skips preset-up length configuration and applies min, max length from the argument of the method. |
 |IEnumerable<string> GetValues(int count);|Generate IEnumerable of random string values.||
 
 ### Examples 
@@ -182,7 +182,7 @@ var value = randomizer.GetValue();
 ```
 
 **Example 3**
-Use predefined randomizer for generating a random strings collection
+Use a predefined randomizer for generating a random strings collection
 
 ```csharp
 using KMVUnion.RandomProvider.StringRandomizer;
@@ -228,7 +228,7 @@ Before starting configuration and using StringRandomizer you should add
 `using KMVUnion.RandomProvider.TextRandomizer;` 
 into **using** section of your class.
 
-For configuring randomizer you can use set of methods ```KMVUnion.RandomProvider.TextRandomizer.ITextRandomizerBuilder```. Method ```Build();```  returns an instance of the ```TextRandomizer```.  It must be called finaly.
+For configuring a randomizer you can use a set of methods ```KMVUnion.RandomProvider.TextRandomizer.ITextRandomizerBuilder```. Method ```Build();```  returns an instance of the ```TextRandomizer```.  It must be called finally.
 
 | Methods | Description | Comments|
 | ------ | ------ | ------ |
@@ -251,7 +251,7 @@ var randomizer = new TextRandomizerBuilder()
     .Build();
 ```
 
-Another approach for the configuration a template is adding a string that contains the required symbols. 
+Another approach for the configuration of a template is adding a string that contains the required symbols. 
 
 ```csharp
 var randomizer = new TextRandomizerBuilder()
@@ -294,7 +294,7 @@ var randomizer = new TextRandomizerBuilder()
 ```
 
 #### Text aligning configuration
-The property **TextAlign** is responsible for the configuration text align mode of the generated value.
+The property **TextAlign** is responsible for the configuration text-align mode of the generated value.
 It could be one from the fourth:
  - **Left** - Align text from the left;
  - **Center** - Align text to the center;
@@ -303,7 +303,7 @@ It could be one from the fourth:
  
 > By default, text align mode is **Left**. 
 
-You can change setting via calling **WithTextAlign** method of the TextRandomizerBuilder class.
+You can change the setting via calling **WithTextAlign** method of the TextRandomizerBuilder class.
 
 ```csharp
 var randomizer = new TextRandomizerBuilder()
@@ -313,8 +313,8 @@ var randomizer = new TextRandomizerBuilder()
     .Build();
 ```
 
-### Get ranndom data methods
-There are some methods that generate random text values. This text could be one of three different types:
+### Get random data methods
+Some methods are generating random text values. This text could be one of three different types:
 - **Noisy** - This type builds text that consists of random symbols without any gaps.
 
 Example:
@@ -333,7 +333,7 @@ Example:
         DCgDggChC Bg5h51h lEBBgECh BhFhBA5F
         lACBC5FgE15
 ```
-- **Sentences** - Such text contains sentences that start from the capital symbols and contains one random symbol from the set (**'.'**, **'!'**, **'?'**) at the end of the each sentence. 
+- **Sentences** - Such text contains sentences that start from the capital symbols and contains one random symbol from the set (**'.'**, **'!'**, **'?'**) at the end of each sentence. 
 
 Example:
 ```
@@ -439,7 +439,7 @@ CD51ChgAh   AFEDg1hFA   DAEgDBFFAgC    h
 ```
 
 **Example 4**
-Generating text which consists of the sentences with aligning text in the center.
+Generating text consists of sentences with aligning text in the center.
 
 ```csharp
 using KMVUnion.RandomProvider.TextRandomizer;
